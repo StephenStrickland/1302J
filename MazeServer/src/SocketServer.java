@@ -28,14 +28,16 @@ public class SocketServer {
 		//DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		PrintWriter outToClient = new PrintWriter(connectionSocket.getOutputStream(), true);
 		System.out.println("Server Connected\n");
-		JReader read = new JReader("/Users/stephen/Desktop/MazeTest.txt");
+		JReader read = new JReader("C:\\Users\\sstrickland\\Documents\\MazeTest.txt");
+//		for(int i = 0; i < read.getArr().length)
+//		{
+//		System.out.println(ArrayUtils.subarray(read.getArr(), i));
+//		}
 		Maze maze = new Maze(read.getArr());
-		//outToClient.writeUTF(maze.getStart());
+		
+		System.out.println("Starting Maze Spot: "+ maze.getStart());
+		
 		outToClient.println(maze.getStart());
-		//load maze array path
-		// load maz with loading class getArr
-		// initialize state 
-
 
 		String currentState = "";
 		int request = 0;
@@ -66,8 +68,11 @@ public class SocketServer {
 
 
 			char [] resultOfMove = maze.move(currentCmd);
-
+			
 			String newMove = new String(resultOfMove);
+		
+			
+			
 			
 			//ArrayUtils.t
 			System.out.println("New Location: " + newMove);
@@ -77,6 +82,7 @@ public class SocketServer {
 			//outToClient.writeUTF(newMove);
 			outToClient.println(newMove);
 			outToClient.flush();
+			
 
 		}
 
