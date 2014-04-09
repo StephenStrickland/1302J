@@ -2,6 +2,7 @@
 import java.util.Arrays;
 import java.lang.StringBuilder;
 
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -23,7 +24,8 @@ public class Maze {
 
 
 	public String getStart() {
-		String startLoc = getLocation().toString();
+		//String startLoc = new String(getLocation());
+		String startLoc = new String(getLocation());
 		return startLoc;
 	}
 
@@ -62,7 +64,7 @@ public class Maze {
 		System.out.println("\nindex of rat in char[] : " + pos);
 
 
-		if(currLoc[pos] == 'p')
+		if((currLoc[pos] == 'p') || (currLoc[pos] == 'o'))
 		{
 			if (pos == 1)
 			{
@@ -78,7 +80,7 @@ public class Maze {
 
 			if (pos == 5)
 			{
-				//right
+				//rightooowpwwrw
 				++collumn;
 			}
 
@@ -101,6 +103,7 @@ public class Maze {
 		}
 		else
 		{
+			System.err.println("Attempted Move: " + tempMove);
 			newLoc = "rrrrrrrrr".toCharArray();
 			System.out.println("Invalid move");
 		}
