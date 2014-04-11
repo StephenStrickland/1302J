@@ -18,8 +18,20 @@ public class RatClient {
 	
 	
 	
-	public void move()
+	public void move(String newMove)
 	{
+		if (newMove == WIN)
+		{
+			System.out.println("You WIN!!!");
+			break;
+		}
+			
+		if( newMove != INVALID_MOVE)
+		{
+			
+		}
+		else
+			backtrack();
 		
 	}
 	
