@@ -18,7 +18,7 @@ public class Maze {
 	public Maze(String[] arr)
 	{
 		mazeArr = arr;
-		findStartEnd(arr[1], arr[99]);
+		findStartEnd(arr[1], arr[98]);
 	}
 
 
