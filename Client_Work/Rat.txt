@@ -2,3 +2,27 @@
 
 Rat
 
+Add collumn, row values toa hash. 
+
+if exists then dont goto/create node. 
+	this will prevent loops and if one exists it will stop the nodes from being created again....
+	
+	|||||o|||||
+	||||oooo||| branch
+->	||||o||o|||L then Right
+	||||oooo||| goes through the right side(dead end)
+	||||o||o|||	then the left node(arrow) which would then recreate nodes to the bottom right corner; -
+	||||o||oo||	which means that more time would be wasted creating nodes that have already existed..
+	|||o||||o||
+	
+	
+	add row, col.... and add to hashmap, test to see if exist
+		true
+		{
+			dont create that node, mark dead = true;
+		}
+		
+		false
+		{
+			keep moving.
+		}
