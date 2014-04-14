@@ -28,6 +28,13 @@ public class RatClient {
 	//maze make new paths(attach side nodes)
 	//pick next path
 	//deadend = backtrack()
+	
+	
+	//get string in temp
+	//create tempnode
+	//instantiate tempnode(tempstring, enum, ...)
+	//set tempnode.previous to currentnode
+	//currentnode = tempnode
 
 	public void move(String newMove)
 	{ 
@@ -50,6 +57,31 @@ public class RatClient {
 		//			}
 		//		}
 
+		
+		
+		//the validation for the mains.
+		
+		
+		if(newMove == WIN)
+		{
+			System.out.println("You win, the end of the maze is at:" + row + ',' + column);
+			System.exit(0);
+		}
+		
+		if(newMove != INVALID_MOVE)
+		{
+			createNode(newMove);
+			findBranches();
+			move();
+			
+			
+		}
+		else
+		{
+			backtrack();
+		}
+		
+		
 
 		//also make sure that its not the opposite of current enum
 		if((newMove.charAt(1) == 'p') && (currentNode.getENUM() != ENUM_FROM_DIR.RIGHT))
@@ -175,7 +207,7 @@ public class RatClient {
 			break;
 
 		case HEAD:
-			System.out.println("Reached the Head of the Tree, please restart maze");
+			System.err.println("Reached the Head of the Tree, please restart maze");
 			break;
 		default:
 			break;
