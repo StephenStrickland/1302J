@@ -11,7 +11,7 @@ public class RatClient {
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
 	int row, column, counter = 0;
-	private Node head = null, current;
+	Node head = null, currentNode;
 	Boolean backtracking = false;
 	
 	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
@@ -47,10 +47,46 @@ public class RatClient {
 
 
 
-	private void backtrack() {
+	private String backtrack() {
 		//backtracks to previous node until other nodes != null
+		//test for other available branches
+		//the order of
+		int ratPos = 0;
+		char[] pos = currentNode.getLocation().toCharArray();
+		//System.out.println(currentNode.getENUM() + " Opposite to the head node.");
 		
+		switch (currentNode.getENUM()) {
+		case DOWN:
+			ratPos = 1;
+			break;
+		case UP:
+			ratPos = 7;
+			break;
+			
+		case LEFT:
+			ratPos = 5;
+			break;
+			
+		case RIGHT:
+			ratPos = 3;
+			break;
+			
+		case HEAD:
+			System.out.println("Reached the Head of the Tree, please restart maze");
+			break;
+		default:
+			break;
+		}
 		
+		pos[4] = 'p';
+		pos[ratPos] = 'r';
+		
+		String new_Bactrack = new String(pos);
+		
+		currentNode.deadEnd = true;
+		Node tempNode = currentNode.getPrevious();
+		currentNode = tempNode;
+		return new_Bactrack;
 	}
 
 
@@ -87,6 +123,8 @@ public class RatClient {
 		
 	}
 	
+	
+	
 	//keep up with the min/max of y and x, that way we can print it out through a for loop and the dictionary
 	
 	
@@ -95,6 +133,8 @@ public class RatClient {
 	//* dead end
 	//+ path
 	//@ mouse location
+
 	
+	//the overall order for everything is Right DOWN Left UP
 
 }
