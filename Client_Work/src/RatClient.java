@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.HashMap;
 
 
@@ -16,6 +20,71 @@ public class RatClient {
 	Boolean backtracking = false;
 //int xy boundries
 	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
+	
+	public static void main(String argv[]) throws Exception
+	{
+		String sentence;
+		BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
+		Socket clientSocket = new Socket("localhost", 13000); 
+
+		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		PrintWriter writeToServer = new PrintWriter(clientSocket.getOutputStream(), true);
+
+		String serverResponse;
+		RatClient rat = new RatClient();
+		
+		try
+		{
+
+			//DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+
+			// print starting location
+			serverResponse = inFromServer.readLine();
+			System.out.println("FROM SERVER: " + serverResponse);
+
+			
+			while (true)
+			{
+				
+				
+				if(serverResponse == WIN)
+				{
+					System.out.println("You win, the end of the maze is at:" + row + ',' + column);
+					System.exit(0);
+				}
+				
+				if(serverResponse != INVALID_MOVE)
+				{
+					rat.createNode(serverResponse);
+					rat.findBranches();
+					writeToServer(rat.move());
+					
+					
+				}
+				else
+				{
+					backtrack();
+				}
+				
+				
+
+				sentence = inFromUser.readLine().trim();
+				//outToServer.writeUTF(sentence);
+				//int length = inFromServer.read(serverResponse);
+				//serverResponse = dataIn.readUTF();
+				writeToServer.println(sentence);
+				//inFromServer.ready();
+				serverResponse = inFromServer.readLine();
+
+
+				System.out.println("FROM SERVER: " + serverResponse);
+			}
+		}
+		finally
+		{
+			clientSocket.close();
+		}
+	}
 
 
 //ORDER OF OPERATIONS
@@ -62,24 +131,6 @@ public class RatClient {
 		//the validation for the mains.
 		
 		
-		if(newMove == WIN)
-		{
-			System.out.println("You win, the end of the maze is at:" + row + ',' + column);
-			System.exit(0);
-		}
-		
-		if(newMove != INVALID_MOVE)
-		{
-			createNode(newMove);
-			findBranches();
-			move();
-			
-			
-		}
-		else
-		{
-			backtrack();
-		}
 		
 		
 
