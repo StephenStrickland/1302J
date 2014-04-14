@@ -14,12 +14,20 @@ public class RatClient {
 	int row, column, counter = 0;
 	Node head = null, currentNode;
 	Boolean backtracking = false;
-
+//int xy boundries
 	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
 
 
+//ORDER OF OPERATIONS
+	//get string
+	//find new nodes that havent been created(hashmap). checking x,y values if exxists in hasmap.
+	//select the next node to traverse
+	//send new string for movement(if valid update x,y position)
+	//repeat till deadend, bactrack
 
-
+	//maze make new paths(attach side nodes)
+	//pick next path
+	//deadend = backtrack()
 
 	public void move(String newMove)
 	{ 
@@ -42,7 +50,7 @@ public class RatClient {
 		//			}
 		//		}
 
-		
+
 		//also make sure that its not the opposite of current enum
 		if((newMove.charAt(1) == 'p') && (currentNode.getENUM() != ENUM_FROM_DIR.RIGHT))
 		{
@@ -69,48 +77,51 @@ public class RatClient {
 			currentNode.up.setENUM(ENUM_FROM_DIR.UP);
 			branches++;
 		}
-		
+
 		if((branches == 0))
 		{
 			backtrack();
 		}
-		
-		
+
+
 		//the overall order for everything is Right DOWN Left UP
-		if((currentNode.right != null) && (currentNode.right.isDead() == false))
+		//just need to see if theres a difference between !null and enums !null.
+
+		if((currentNode.right.getENUM() != null) && (currentNode.right.isDead() == false))
 		{
-			
+			//move RIGHT
 		}
 		else if((currentNode.down != null) && (currentNode.down.isDead() == false))
 		{
-			
+			//move DOWN
 		}
 		else if((currentNode.left != null) && (currentNode.left.isDead() == false))
 		{
-			
+			//move LEFT
 		}
-		
+
 		else if((currentNode.up != null) && (currentNode.up.isDead() == false))
 		{
-			
+			//move UP
 		}
 		else
 		{
+			//all else is null backtrack.
 			backtrack();
 		}
-	
 
 
 
-//
-//		if(!(INVALID_MOVE))
-//		{
-//			tempNode.set
-//		}
-//		else
-//		{
-//
-//		}
+
+		//
+		//		if(!(INVALID_MOVE))
+		//		{
+		//			tempNode.set
+		//		}
+		//		else
+		//		{
+		//
+		//		}
 
 
 
@@ -201,10 +212,12 @@ public class RatClient {
 		counter++;
 		StringBuilder sb = new StringBuilder();
 		sb.append(column);
-		sb.append('-');
+		sb.append('~');
 		sb.append(row);
-		//change this  - key is a string, (x~y) then value is the current Node;
-
+		//change this  - key is a string of the location, (x~y) then value is the current Node;
+		
+		//x~y makes sure it can keep up with negative values. 
+		// ---- dash changed to tilde-----
 
 		String newPosMapValue = sb.toString();
 
