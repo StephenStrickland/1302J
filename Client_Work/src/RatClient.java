@@ -22,24 +22,37 @@ public class RatClient {
 	
 	public void move(String newMove)
 	{
+		Node tempNode;
 		
-		if(head != null)
+		if(!(INVALID_MOVE))
 		{
-		if (newMove == WIN)
-		{
-			System.out.println("You WIN!!!");
-			break;
+			tempNode.set
 		}
-			
-		if( newMove != INVALID_MOVE)
+		else
 		{
 			
 		}
-		else
-			backtrack();
-		}
-		else
-			createHead(newMove);
+			
+		
+		
+		
+//		if(head != null)
+//		{
+//		if (newMove == WIN)
+//		{
+//			System.out.println("You WIN!!!");
+//			break;
+//		}
+//			
+//		if( newMove != INVALID_MOVE)
+//		{
+//			
+//		}
+//		else
+//			backtrack();
+//		}
+//		else
+//			createHead(newMove);
 		
 	}
 
@@ -123,7 +136,12 @@ public class RatClient {
 		
 	}
 	
+	//TESTING build several mazes slowly gaining complexity to the nth degree.
 	
+	//for mains, IF deadend, backtrack -- that was it will increment its way back to a node that it can search another branch.
+	
+	
+	//
 	
 	//keep up with the min/max of y and x, that way we can print it out through a for loop and the dictionary
 	
@@ -136,5 +154,6 @@ public class RatClient {
 
 	
 	//the overall order for everything is Right DOWN Left UP
-
+//
+	//When new location comes in, find available paths and set enums for the according nodes, when backtracking all null nodes are assumed walls and the nodes with enums will be available to traverse through.
 }

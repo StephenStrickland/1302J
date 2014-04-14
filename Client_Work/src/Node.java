@@ -77,6 +77,11 @@ public class Node{
 		return previous;
 	}
 	
+	public void setLocation(String newLoc)
+	{
+		location = newLoc;
+	}
+	
 	public void setWalked(Boolean newWalk)
 	{
 		walked = newWalk;
