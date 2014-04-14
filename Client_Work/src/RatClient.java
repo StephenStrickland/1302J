@@ -18,9 +18,12 @@ public class RatClient {
 	int row, column, counter = 0;
 	Node head = null, currentNode;
 	Boolean backtracking = false;
-//int xy boundries
+	//int xy boundries
 	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
 	
+	
+	//start of mains
+
 	public static void main(String argv[]) throws Exception
 	{
 		String sentence;
@@ -32,7 +35,7 @@ public class RatClient {
 
 		String serverResponse;
 		RatClient rat = new RatClient();
-		
+
 		try
 		{
 
@@ -42,42 +45,46 @@ public class RatClient {
 			serverResponse = inFromServer.readLine();
 			System.out.println("FROM SERVER: " + serverResponse);
 
-			
+
 			while (true)
 			{
-				
-				
+
+				serverResponse = inFromServer.readLine();
+
 				if(serverResponse == WIN)
 				{
-					System.out.println("You win, the end of the maze is at:" + row + ',' + column);
-					System.exit(0);
+					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
 				}
-				
+
 				if(serverResponse != INVALID_MOVE)
 				{
-					rat.createNode(serverResponse);
 					rat.findBranches();
-					writeToServer(rat.move());
-					
-					
+					rat.createNode(serverResponse);
+					writeToServer.println(rat.move());
+
+
 				}
 				else
 				{
-					backtrack();
+					writeToServer.println(backtrack());
 				}
-				
-				
 
+
+				rat.repaint();
+
+				/*
 				sentence = inFromUser.readLine().trim();
+				writeToServer.println(sentence);*/
+
+
 				//outToServer.writeUTF(sentence);
 				//int length = inFromServer.read(serverResponse);
 				//serverResponse = dataIn.readUTF();
-				writeToServer.println(sentence);
 				//inFromServer.ready();
-				serverResponse = inFromServer.readLine();
 
 
-				System.out.println("FROM SERVER: " + serverResponse);
+
+				//System.out.println("FROM SERVER: " + serverResponse);
 			}
 		}
 		finally
@@ -85,9 +92,27 @@ public class RatClient {
 			clientSocket.close();
 		}
 	}
+	
+	private void findBranches() {
+		
+		
+	}
+
+	//end of mains
 
 
-//ORDER OF OPERATIONS
+	public void createNode(String serverResponse) 
+	{
+		Node tempNode = null;
+		tempNode.setLocation(serverResponse);
+		
+		
+		
+
+	}
+
+
+	//ORDER OF OPERATIONS
 	//get string
 	//find new nodes that havent been created(hashmap). checking x,y values if exxists in hasmap.
 	//select the next node to traverse
@@ -97,8 +122,8 @@ public class RatClient {
 	//maze make new paths(attach side nodes)
 	//pick next path
 	//deadend = backtrack()
-	
-	
+
+
 	//get string in temp
 	//create tempnode
 	//instantiate tempnode(tempstring, enum, ...)
@@ -108,7 +133,7 @@ public class RatClient {
 	public void move(String newMove)
 	{ 
 		int branches = 0;
-		Node tempNode;
+		//Node tempNode;
 		Boolean leftNode, rightNode, upNode, downNode;
 		Boolean[] BoolNodes = new Boolean[4];
 
@@ -126,13 +151,13 @@ public class RatClient {
 		//			}
 		//		}
 
-		
-		
+
+
 		//the validation for the mains.
-		
-		
-		
-		
+
+
+
+
 
 		//also make sure that its not the opposite of current enum
 		if((newMove.charAt(1) == 'p') && (currentNode.getENUM() != ENUM_FROM_DIR.RIGHT))
@@ -298,7 +323,7 @@ public class RatClient {
 		sb.append('~');
 		sb.append(row);
 		//change this  - key is a string of the location, (x~y) then value is the current Node;
-		
+
 		//x~y makes sure it can keep up with negative values. 
 		// ---- dash changed to tilde-----
 
