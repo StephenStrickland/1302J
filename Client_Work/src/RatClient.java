@@ -75,7 +75,7 @@ public class RatClient {
 		sb.append(column);
 		sb.append('-');
 		sb.append(row);
-		
+		//change this  - key is a string, (x~y) then value is the current Node;
 		String newPosMapValue = sb.toString();
 		
 		if(positionMap.containsKey(counter) != true)
@@ -87,7 +87,14 @@ public class RatClient {
 		
 	}
 	
+	//keep up with the min/max of y and x, that way we can print it out through a for loop and the dictionary
 	
+	
+	//write test for first location, to see if we can find out if there is anything that we can find out about the location(like which corner, is it on an edge or in the middle)...
+	
+	//* dead end
+	//+ path
+	//@ mouse location
 	
 
 }
