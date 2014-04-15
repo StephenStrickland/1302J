@@ -16,7 +16,7 @@ public class RatClient {
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
 	int row = 0, column = 0, counter = 0;
-	Node head = null, currentNode, tempNode;
+	Node head = null, currentNode, tempNode = null;
 	Boolean backtracking = false;
 	//int xy boundries
 	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
@@ -44,6 +44,8 @@ public class RatClient {
 			// print starting location
 			serverResponse = inFromServer.readLine();
 			rat.createHead(serverResponse);
+			rat.findBranches(serverResponse);
+			writeToServer.println(rat.move(serverResponse));
 			System.out.println("FROM SERVER: " + serverResponse);
 
 
@@ -100,23 +102,23 @@ public class RatClient {
 	{
 		int branches = 0;
 		
-		if((newMove.charAt(1) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.RIGHT))
+		if((newMove.charAt(3) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.RIGHT))
 		{
 			tempNode.left.setENUM(ENUM_FROM_DIR.LEFT);
 			branches++;
 		}
 
-		if((newMove.charAt(3) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.LEFT))
+		if((newMove.charAt(5) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.LEFT))
 		{
 			tempNode.right.setENUM(ENUM_FROM_DIR.RIGHT);
 			branches++;
 		}
-		if((newMove.charAt(5) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.UP))
+		if((newMove.charAt(7) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.UP))
 		{
 			tempNode.down.setENUM(ENUM_FROM_DIR.DOWN);
 			branches++;
 		}
-		if((newMove.charAt(7) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.DOWN))
+		if((newMove.charAt(1) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.DOWN) )
 		{
 			tempNode.up.setENUM(ENUM_FROM_DIR.UP);
 			branches++;
@@ -185,6 +187,8 @@ public class RatClient {
 			//move DOWN
 			column++;
 			newPos = createString(newMove,7);
+			currentNode.down = tempNode;
+			tempNode.setENUM(ENUM_FROM_DIR.DOWN);
 		}
 		else if((currentNode.left != null) && (currentNode.left.isDead() != true))
 		{
@@ -309,7 +313,9 @@ public class RatClient {
 	{
 		//	Creates head
 		Node tempHead = new Node(loc, ENUM_FROM_DIR.HEAD, null);
-		head = tempHead;
+		tempNode = tempHead;
+		head = tempNode;
+		currentNode = head;
 		addMap();
 	}
 

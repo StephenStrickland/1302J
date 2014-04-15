@@ -14,6 +14,10 @@ public class Node{
 		up = null;
 		down = null;
 		deadEnd = false;
+		left.setENUM(null);
+		right.setENUM(null);
+		up.setENUM(null);
+		down.setENUM(null);
 	}
 	
 	public Node(String loc, ENUM_FROM_DIR from, Node prev)
