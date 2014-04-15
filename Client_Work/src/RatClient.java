@@ -312,9 +312,10 @@ public class RatClient {
 	private void createHead(String loc) 
 	{
 		//	Creates head
-		Node tempHead = new Node(loc, ENUM_FROM_DIR.HEAD, null);
-		tempNode = tempHead;
-		head = tempNode;
+		//Node tempHead = new Node(loc, ENUM_FROM_DIR.HEAD, null);
+		//tempNode = tempHead;
+		currentNode = new Node(loc, ENUM_FROM_DIR.HEAD, head);
+		//head = tempNode;
 		currentNode = head;
 		addMap();
 	}
