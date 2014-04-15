@@ -67,3 +67,31 @@ JsonReader reader  = new JsonReader(new FileReader(path));
 ```
 
 ###Socket Server
+
+This handles the Socket(port 13000) and updating the rat's location.
+
+It opens a socket
+```
+socket = new ServerSocket(13000);
+```
+
+And waits for a connection.
+
+Once a client connects it initializes a BufferedReader and a Printwriter.
+
+JReader then reads in the maze from the JSON array. 
+
+The Server then finds the start and end locations of the maze and then sends the starting location to the Client.
+
+The Server waits for an updated position string from the Client. It takes the string finds the location of the char 'r' and updates the rats current position. Then it creates a string with the surrounding cells of the new position and send it to the Client.
+
+
+###ENUM
+Just the file that contains the enums for the nodes.(not much to explain)
+
+
+###Rat Client
+
+This the "brains" of the rat.
+
+######Order of Operations
