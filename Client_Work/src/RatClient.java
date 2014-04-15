@@ -59,9 +59,9 @@ public class RatClient {
 
 				if(serverResponse != INVALID_MOVE)
 				{	rat.currentNode .setLocation(serverResponse);
-					rat.findBranches();
+					rat.findBranches(serverResponse);
 					rat.createNode(serverResponse);
-					writeToServer.println(rat.move());
+					writeToServer.println(rat.move(serverResponse));
 
 
 				}
@@ -160,64 +160,56 @@ public class RatClient {
 	//set tempnode.previous to currentnode
 	//currentnode = tempnode
 
-	public void move(String newMove)
+	public String move(String newMove)
 	{ 
-		int branches = 0;
-		//Node tempNode;
-		Boolean leftNode, rightNode, upNode, downNode;
-		Boolean[] BoolNodes = new Boolean[4];
+		String newPos;
 
-		//		for(int i = 0; i < BoolNodes.length; i++)
-		//		{
-		//			int path = i;
-		//			if ((path%2 == 0) || (path == 0))
-		//			{
-		//				path++;
-		//			}
-		//			
-		//			if (newMove.charAt(path) == 'p')
-		//			{
-		//				BoolNodes[i] = true;
-		//			}
-		//		}
-
-
-
-		//the validation for the mains.
-
-
-
-
-
-		//also make sure that its not the opposite of current enum
-		
 
 		//the overall order for everything is Right DOWN Left UP
 		//just need to see if theres a difference between !null and enums !null.
+		tempNode.setLocation(newMove);
+		tempNode.setPrevious(currentNode);
+		
 
-		if((currentNode.right.getENUM() != null) && (currentNode.right.isDead() == false))
+		if((currentNode.right != null) && (currentNode.right.isDead() != true))
 		{
 			//move RIGHT
+			row++;
+			newPos = createString(newMove,5);
+
+			currentNode.right = tempNode;
+			tempNode.setENUM(ENUM_FROM_DIR.RIGHT);
+			
+			
 		}
-		else if((currentNode.down != null) && (currentNode.down.isDead() == false))
+		else if((currentNode.down != null) && (currentNode.down.isDead() != true))
 		{
 			//move DOWN
+			column++;
+			newPos = createString(newMove,7);
 		}
-		else if((currentNode.left != null) && (currentNode.left.isDead() == false))
+		else if((currentNode.left != null) && (currentNode.left.isDead() != true))
 		{
 			//move LEFT
+			row--;
+			newPos = createString(newMove,3);
 		}
 
-		else if((currentNode.up != null) && (currentNode.up.isDead() == false))
+		else if((currentNode.up != null) && (currentNode.up.isDead() != true))
 		{
 			//move UP
+			column--;
+			newPos = createString(newMove,1);
 		}
 		else
 		{
 			//all else is null backtrack.
-			backtrack();
+			newPos = backtrack();
 		}
-
+		
+		currentNode = tempNode;
+		
+		return newPos;
 
 
 
@@ -256,7 +248,18 @@ public class RatClient {
 
 
 
-
+	private String createString(String Pos, int i) {
+		
+		char[] j = Pos.toCharArray();
+		
+		j[4] = 'p';
+		j[i] = 'r';
+		
+		String move = new String(Pos);
+		
+		
+		return move;
+	}
 
 	private String backtrack() {
 		//backtracks to previous node until other nodes != null
