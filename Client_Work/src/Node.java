@@ -14,10 +14,10 @@ public class Node{
 		up = null;
 		down = null;
 		deadEnd = false;
-		left.setENUM(null);
-		right.setENUM(null);
-		up.setENUM(null);
-		down.setENUM(null);
+//		left.setENUM(null);
+//		right.setENUM(null);
+//		up.setENUM(null);
+//		down.setENUM(null);
 	}
 	
 	public Node(String loc, ENUM_FROM_DIR from, Node prev)
@@ -35,6 +35,23 @@ public class Node{
 		deadEnd = false;
 		fromDir = from;
 		walked = false;
+	}
+	
+	public void createNode(int i)
+	{
+		switch(i)
+		{
+			case 1: right = new Node();
+			break;
+			case 2: down = new Node();
+			break;
+			case 3: left = new Node();
+			break;
+			case 4: up = new Node();
+			break;
+		}
+		
+		
 	}
 	public Boolean isWalked()
 	{

@@ -16,7 +16,7 @@ public class RatClient {
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
 	int row = 0, column = 0, counter = 0;
-	Node head = null, currentNode, tempNode = null;
+	Node head = null, currentNode, tempNode;
 	Boolean backtracking = false;
 	//int xy boundries
 	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
@@ -62,9 +62,8 @@ public class RatClient {
 				if(serverResponse != INVALID_MOVE)
 				{	
 					//rat.currentNode.setLocation(serverResponse);
-					rat.findBranches(serverResponse);
 					rat.createNode(serverResponse);
-					
+					rat.findBranches(serverResponse);
 					writeToServer.println(rat.move(serverResponse));
 					System.out.println("FROM SERVER: " + serverResponse);
 
@@ -113,8 +112,12 @@ public class RatClient {
 			tempNode.right.setENUM(ENUM_FROM_DIR.RIGHT);
 			branches++;
 		}
-		if((newMove.charAt(7) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.UP))
+		//&& (currentNode.getENUM() != ENUM_FROM_DIR.UP)
+		if((newMove.charAt(7) == 'p'))
 		{
+			if(tempNode.down == null)
+				tempNode.createNode(2);
+				
 			tempNode.down.setENUM(ENUM_FROM_DIR.DOWN);
 			branches++;
 		}
@@ -135,10 +138,10 @@ public class RatClient {
 	//end of mains
 
 
-	public void createNode(String serverResponse) 
+	public void createNode(String serverResponse)
 	{
-		tempNode.setLocation(serverResponse);
-
+		currentNode.setLocation(serverResponse);
+		tempNode.setPrevious(currentNode);
 	}
 
 
@@ -314,8 +317,9 @@ public class RatClient {
 		//	Creates head
 		//Node tempHead = new Node(loc, ENUM_FROM_DIR.HEAD, null);
 		//tempNode = tempHead;
-		currentNode = new Node(loc, ENUM_FROM_DIR.HEAD, head);
-		//head = tempNode;
+	
+		tempNode = new Node(loc, ENUM_FROM_DIR.HEAD, head);
+		head = tempNode;
 		currentNode = head;
 		addMap();
 	}
