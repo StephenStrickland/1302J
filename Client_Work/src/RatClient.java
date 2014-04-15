@@ -15,8 +15,8 @@ public class RatClient {
 	static final String WIN = "ooooooooo";
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
-	int row, column, counter = 0;
-	Node head = null, currentNode;
+	int row = 0, column = 0, counter = 0;
+	Node head = null, currentNode, tempNode;
 	Boolean backtracking = false;
 	//int xy boundries
 	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
@@ -43,6 +43,7 @@ public class RatClient {
 
 			// print starting location
 			serverResponse = inFromServer.readLine();
+			rat.createHead(serverResponse);
 			System.out.println("FROM SERVER: " + serverResponse);
 
 
@@ -57,7 +58,7 @@ public class RatClient {
 				}
 
 				if(serverResponse != INVALID_MOVE)
-				{
+				{	rat.currentNode .setLocation(serverResponse);
 					rat.findBranches();
 					rat.createNode(serverResponse);
 					writeToServer.println(rat.move());
@@ -93,8 +94,37 @@ public class RatClient {
 		}
 	}
 	
-	private void findBranches() {
+	private void findBranches(String newMove) 
+	{
+		int branches = 0;
 		
+		if((newMove.charAt(1) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.RIGHT))
+		{
+			tempNode.left.setENUM(ENUM_FROM_DIR.LEFT);
+			branches++;
+		}
+
+		if((newMove.charAt(3) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.LEFT))
+		{
+			tempNode.right.setENUM(ENUM_FROM_DIR.RIGHT);
+			branches++;
+		}
+		if((newMove.charAt(5) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.UP))
+		{
+			tempNode.down.setENUM(ENUM_FROM_DIR.DOWN);
+			branches++;
+		}
+		if((newMove.charAt(7) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.DOWN))
+		{
+			tempNode.up.setENUM(ENUM_FROM_DIR.UP);
+			branches++;
+		}
+
+		if((branches == 0))
+		{
+			backtrack();
+		}
+
 		
 	}
 
@@ -103,8 +133,8 @@ public class RatClient {
 
 	public void createNode(String serverResponse) 
 	{
-		Node tempNode = null;
-		tempNode.setLocation(serverResponse);
+		Node tempNod = null;
+		tempNod.setLocation(serverResponse);
 		
 		
 		
@@ -160,37 +190,7 @@ public class RatClient {
 
 
 		//also make sure that its not the opposite of current enum
-		if((newMove.charAt(1) == 'p') && (currentNode.getENUM() != ENUM_FROM_DIR.RIGHT))
-		{
-			leftNode = true;
-			currentNode.left.setENUM(ENUM_FROM_DIR.LEFT);
-			branches++;
-		}
-
-		if((newMove.charAt(3) == 'p') && (currentNode.getENUM() != ENUM_FROM_DIR.LEFT))
-		{
-			rightNode = true;
-			currentNode.right.setENUM(ENUM_FROM_DIR.RIGHT);
-			branches++;
-		}
-		if((newMove.charAt(5) == 'p') && (currentNode.getENUM() != ENUM_FROM_DIR.UP))
-		{
-			downNode = true;
-			currentNode.down.setENUM(ENUM_FROM_DIR.DOWN);
-			branches++;
-		}
-		if((newMove.charAt(7) == 'p') && (currentNode.getENUM() != ENUM_FROM_DIR.DOWN))
-		{
-			upNode = true;
-			currentNode.up.setENUM(ENUM_FROM_DIR.UP);
-			branches++;
-		}
-
-		if((branches == 0))
-		{
-			backtrack();
-		}
-
+		
 
 		//the overall order for everything is Right DOWN Left UP
 		//just need to see if theres a difference between !null and enums !null.
