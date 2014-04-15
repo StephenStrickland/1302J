@@ -67,11 +67,11 @@ public class RatClient {
 				}
 				else
 				{
-					writeToServer.println(backtrack());
+					writeToServer.println(rat.backtrack());
 				}
 
 
-				rat.repaint();
+				//rat.repaint();
 
 				/*
 				sentence = inFromUser.readLine().trim();
@@ -85,7 +85,7 @@ public class RatClient {
 
 
 
-				//System.out.println("FROM SERVER: " + serverResponse);
+				System.out.println("FROM SERVER: " + serverResponse);
 			}
 		}
 		finally

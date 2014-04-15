@@ -28,7 +28,10 @@ public class SocketServer {
 		//DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		PrintWriter outToClient = new PrintWriter(connectionSocket.getOutputStream(), true);
 		System.out.println("Server Connected\n");
-		JReader read = new JReader("C:\\Users\\sstrickland\\Documents\\MazeTest.txt");
+		//PC 
+		//JReader read = new JReader("C:\\Users\\sstrickland\\Documents\\MazeTest.txt");
+		//mac
+		JReader read = new JReader("/Users/stephen/GitProjects/1302J/MazeTest.txt");
 //		for(int i = 0; i < read.getArr().length)
 //		{
 //		System.out.println(ArrayUtils.subarray(read.getArr(), i));

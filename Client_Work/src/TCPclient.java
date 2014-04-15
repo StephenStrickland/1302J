@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 class TCPClient
 {
-	public static void main(String argv[]) throws Exception
+	/*public static void main(String argv[]) throws Exception
 	{
 		String sentence;
 		BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
@@ -47,7 +47,7 @@ class TCPClient
 		{
 			clientSocket.close();
 		}
-	}
+	}*/
 
 
 }
