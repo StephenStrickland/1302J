@@ -27,7 +27,7 @@ public class RatClient {
 	public static void main(String argv[]) throws Exception
 	{
 		String sentence;
-		BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
+		//BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
 		Socket clientSocket = new Socket("localhost", 13000); 
 
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -101,7 +101,7 @@ public class RatClient {
 	private void findBranches(String newMove) 
 	{
 		int branches = 0;
-		
+		//ooowrwwpw
 		if((newMove.charAt(3) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.RIGHT))
 		{
 			tempNode.left.setENUM(ENUM_FROM_DIR.LEFT);
