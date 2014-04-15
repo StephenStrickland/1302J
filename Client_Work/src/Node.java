@@ -24,7 +24,7 @@ public class Node{
 		up = null;
 		down = null;
 		
-		left.setENUM(ENUM_FROM_DIR.LEFT);
+		//left.setENUM(ENUM_FROM_DIR.LEFT);
 		//do for the rest of the nodes accordingly.
 		
 		location = loc;

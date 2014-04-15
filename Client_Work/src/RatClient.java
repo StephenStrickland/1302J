@@ -58,7 +58,7 @@ public class RatClient {
 				}
 
 				if(serverResponse != INVALID_MOVE)
-				{	rat.currentNode .setLocation(serverResponse);
+				{	rat.currentNode.setLocation(serverResponse);
 					rat.findBranches(serverResponse);
 					rat.createNode(serverResponse);
 					writeToServer.println(rat.move(serverResponse));
