@@ -15,10 +15,10 @@ wrw <br>
 wpw <br>
 
 Where 
-  o = outside of the maze
-  w = walls
-  p = available paths
-  r = the current location of the rat
+  o = outside of the maze <br>
+  w = walls <br>
+  p = available paths <br>
+  r = the current location of the rat <br>
   
 This grid then translates to a 9 character String(ooowrwwpw)that is sent to and from the server/client.
 
