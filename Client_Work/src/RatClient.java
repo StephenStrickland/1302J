@@ -31,7 +31,7 @@ public class RatClient {
 		Socket clientSocket = new Socket("localhost", 13000); 
 
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		PrintWriter writeToServer = new PrintWriter(clientSocket.getOutputStream(), true);
+		PrintWriter writeToServer = new PrintWriter(clientSocket.getOutputStream());
 
 		String serverResponse;
 		RatClient rat = new RatClient();
@@ -58,10 +58,13 @@ public class RatClient {
 				}
 
 				if(serverResponse != INVALID_MOVE)
-				{	rat.currentNode.setLocation(serverResponse);
+				{	
+					//rat.currentNode.setLocation(serverResponse);
 					rat.findBranches(serverResponse);
 					rat.createNode(serverResponse);
+					
 					writeToServer.println(rat.move(serverResponse));
+					System.out.println("FROM SERVER: " + serverResponse);
 
 
 				}
@@ -85,7 +88,6 @@ public class RatClient {
 
 
 
-				System.out.println("FROM SERVER: " + serverResponse);
 			}
 		}
 		finally
@@ -133,11 +135,7 @@ public class RatClient {
 
 	public void createNode(String serverResponse) 
 	{
-		Node tempNod = null;
-		tempNod.setLocation(serverResponse);
-		
-		
-		
+		tempNode.setLocation(serverResponse);
 
 	}
 
