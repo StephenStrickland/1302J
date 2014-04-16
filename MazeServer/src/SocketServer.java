@@ -84,8 +84,13 @@ public class SocketServer {
 
 			//byte[] outputBuff = stringToBytesASCII(resultOfMove);
 			//outToClient.writeUTF(newMove);
+			if(newMove != "ooooooooo")
+			{
 			outToClient.println(newMove);
 			outToClient.flush();
+			}
+			else
+				System.exit(0);
 			
 
 		}

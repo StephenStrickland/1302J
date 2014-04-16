@@ -17,35 +17,33 @@ public class Maze {
 
 	public Maze(String[] arr)
 	{
+		//initialize our main array.
 		mazeArr = arr;
 		findStartEnd(arr[1], arr[98]);
 	}
 
 
 
-	public String getStart() {
-		//String startLoc = new String(getLocation());
+	public String getStart() 
+	{
+		//gets the initial start position String
 		String startLoc = new String(getLocation());
 		return startLoc;
 	}
 
 
 
-	private void findStartEnd(String fStart, String fEnd) {
-
-		//			boolean beg, end;
-
+	private void findStartEnd(String fStart, String fEnd) 
+	{
+		//my maze will start from the top and will finish at the bottom, so we can assume that the maze start will be on the arrays 
 		start = fStart.indexOf('r');
-		end = fEnd.indexOf('o');
+		end = fEnd.substring(1, 98).indexOf('o') + 1;
 
 		row = 1;
 		collumn = start;
 
 		endrow = 99;
 		endcol = end;
-
-
-
 	}
 
 
@@ -54,7 +52,7 @@ public class Maze {
 	{
 		int pos;
 		char[] currLoc = getLocation(); 
-		char[] newLoc;
+		char[] newLoc = null;
 
 
 		//pos = Arrays.binarySearch(tempMove, 'r');
@@ -64,7 +62,7 @@ public class Maze {
 		System.out.println("\nindex of rat in char[] : " + pos);
 
 
-		if((currLoc[pos] == 'p') || (currLoc[pos] == 'o'))
+		if(currLoc[pos] != 'w')
 		{
 			switch(pos) {
 			case 1: 
@@ -84,40 +82,45 @@ public class Maze {
 				++row;
 				break;
 			}
-				
-//			if (pos == 1)
-//			{
-//				//up
-//				--row;
-//			}
-//
-//			if (pos == 3)
-//			{
-//				//left
-//				--collumn;
-//			}
-//
-//			if (pos == 5)
-//			{
-//				//rightooowpwwrw
-//				++collumn;
-//			}
-//
-//			if (pos == 7)
-//			{
-//				//down
-//				++row;
-//			}
 
-			if((row == endrow) && (collumn == endcol))
+			//			if (pos == 1)
+			//			{
+			//				//up
+			//				--row;
+			//			}
+			//
+			//			if (pos == 3)
+			//			{
+			//				//left
+			//				--collumn;
+			//			}
+			//
+			//			if (pos == 5)
+			//			{
+			//				//rightooowpwwrw
+			//				++collumn;
+			//			}
+			//
+			//			if (pos == 7)
+			//			{
+			//				//down
+			//				++row;
+			//			}
+
+			if((row == endrow) && (collumn == endcol) )
 			{
 				newLoc = "ooooooooo".toCharArray();
 				System.out.println("Maze Completed");
 			}
 			else
 			{
-				newLoc = getLocation();
-				System.out.println("Moving to: " + row + ',' + collumn);
+				try {
+					newLoc = getLocation();
+					System.out.println("Moving to: " + row + ',' + collumn);
+
+				} catch (Exception e) {
+					System.err.println("INVALID MOVE");
+				}
 			}
 		}
 		else
@@ -151,7 +154,7 @@ public class Maze {
 
 		location = tempLoc.toCharArray();
 		location[4] = 'r';
-		
+
 		if(location[1] == 'r')
 			location[1] = 'p';
 
