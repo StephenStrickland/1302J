@@ -88,7 +88,7 @@ public class RatClient {
 	private void findBranches(String newMove) 
 	{
 		int branches = 0;
-		tempNode = new Node();
+		//tempNode = new Node();
 		//ooowrwwpw
 		if((newMove.charAt(3) == 'p'))
 		{
