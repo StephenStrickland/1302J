@@ -77,18 +77,6 @@ public class RatClient {
 
 				//rat.repaint();
 
-				/*
-				sentence = inFromUser.readLine().trim();
-				writeToServer.println(sentence);*/
-
-
-				//outToServer.writeUTF(sentence);
-				//int length = inFromServer.read(serverResponse);
-				//serverResponse = dataIn.readUTF();
-				//inFromServer.ready();
-
-
-
 			}
 		}
 		finally
@@ -100,19 +88,24 @@ public class RatClient {
 	private void findBranches(String newMove) 
 	{
 		int branches = 0;
+		tempNode = null;
 		//ooowrwwpw
-		if((newMove.charAt(3) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.RIGHT))
+		if((newMove.charAt(3) == 'p'))
 		{
+			if(tempNode.left == null)
+				tempNode.createNode(3);
 			tempNode.left.setENUM(ENUM_FROM_DIR.LEFT);
 			branches++;
 		}
 
-		if((newMove.charAt(5) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.LEFT))
+		if((newMove.charAt(5) == 'p'))
 		{
+			if(tempNode.right == null)
+				tempNode.createNode(1);
 			tempNode.right.setENUM(ENUM_FROM_DIR.RIGHT);
 			branches++;
 		}
-		//&& (currentNode.getENUM() != ENUM_FROM_DIR.UP)
+
 		if((newMove.charAt(7) == 'p'))
 		{
 			if(tempNode.down == null)
@@ -121,8 +114,10 @@ public class RatClient {
 			tempNode.down.setENUM(ENUM_FROM_DIR.DOWN);
 			branches++;
 		}
-		if((newMove.charAt(1) == 'p') && (tempNode.getENUM() != ENUM_FROM_DIR.DOWN) )
+		if((newMove.charAt(1) == 'p'))
 		{
+			if(tempNode.up == null)
+				tempNode.createNode(4);
 			tempNode.up.setENUM(ENUM_FROM_DIR.UP);
 			branches++;
 		}
@@ -140,8 +135,10 @@ public class RatClient {
 
 	public void createNode(String serverResponse)
 	{
-		currentNode.setLocation(serverResponse);
+		tempNode = new Node();
 		tempNode.setPrevious(currentNode);
+		currentNode.setLocation(serverResponse);
+		
 	}
 
 
@@ -180,18 +177,18 @@ public class RatClient {
 			row++;
 			newPos = createString(newMove,5);
 
-			currentNode.right = tempNode;
 			tempNode.setENUM(ENUM_FROM_DIR.RIGHT);
+			currentNode.right = tempNode;
 			
 			
 		}
-		else if((currentNode.down != null) && (currentNode.down.isDead() != true))
+		else if((tempNode.down != null) && (tempNode.down.isDead() != true))
 		{
 			//move DOWN
 			column++;
 			newPos = createString(newMove,7);
-			currentNode.down = tempNode;
 			tempNode.setENUM(ENUM_FROM_DIR.DOWN);
+			currentNode.down = tempNode;
 		}
 		else if((currentNode.left != null) && (currentNode.left.isDead() != true))
 		{
@@ -212,42 +209,13 @@ public class RatClient {
 			newPos = backtrack();
 		}
 		
+		
+		addMap();
+		//updateBoundries();
 		currentNode = tempNode;
+		tempNode = null;
 		
 		return newPos;
-
-
-
-		//
-		//		if(!(INVALID_MOVE))
-		//		{
-		//			tempNode.set
-		//		}
-		//		else
-		//		{
-		//
-		//		}
-
-
-
-
-		//		if(head != null)
-		//		{
-		//		if (newMove == WIN)
-		//		{
-		//			System.out.println("You WIN!!!");
-		//			break;
-		//		}
-		//			
-		//		if( newMove != INVALID_MOVE)
-		//		{
-		//			
-		//		}
-		//		else
-		//			backtrack();
-		//		}
-		//		else
-		//			createHead(newMove);
 
 	}
 
@@ -272,7 +240,6 @@ public class RatClient {
 		//the order of
 		int ratPos = 0;
 		char[] pos = currentNode.getLocation().toCharArray();
-		//System.out.println(currentNode.getENUM() + " Opposite to the head node.");
 
 		switch (currentNode.getENUM()) {
 		case DOWN:
@@ -322,6 +289,7 @@ public class RatClient {
 		head = tempNode;
 		currentNode = head;
 		addMap();
+		//updateboundries();
 	}
 
 
