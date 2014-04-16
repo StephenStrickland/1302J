@@ -66,29 +66,48 @@ public class Maze {
 
 		if((currLoc[pos] == 'p') || (currLoc[pos] == 'o'))
 		{
-			if (pos == 1)
-			{
+			switch(pos) {
+			case 1: 
 				//up
 				--row;
-			}
-
-			if (pos == 3)
-			{
+				break;
+			case 3:
 				//left
 				--collumn;
-			}
-
-			if (pos == 5)
-			{
-				//rightooowpwwrw
+				break;
+			case 5:
+				//right
 				++collumn;
-			}
-
-			if (pos == 7)
-			{
+				break;
+			case 7:
 				//down
 				++row;
+				break;
 			}
+				
+//			if (pos == 1)
+//			{
+//				//up
+//				--row;
+//			}
+//
+//			if (pos == 3)
+//			{
+//				//left
+//				--collumn;
+//			}
+//
+//			if (pos == 5)
+//			{
+//				//rightooowpwwrw
+//				++collumn;
+//			}
+//
+//			if (pos == 7)
+//			{
+//				//down
+//				++row;
+//			}
 
 			if((row == endrow) && (collumn == endcol))
 			{

@@ -9,6 +9,7 @@ public class Node{
 	
 	public Node()
 	{
+		previous = null;
 		left = null;
 		right = null;
 		up = null;

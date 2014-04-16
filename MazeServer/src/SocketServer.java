@@ -37,6 +37,7 @@ public class SocketServer {
 //		System.out.println(ArrayUtils.subarray(read.getArr(), i));
 //		}
 		Maze maze = new Maze(read.getArr());
+		System.out.println("This maze is: " + maze.mazeArr[1].length() +'x' + maze.mazeArr.length);
 		
 		System.out.println("Starting Maze Spot: "+ maze.getStart());
 		

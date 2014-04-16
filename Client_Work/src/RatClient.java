@@ -31,7 +31,7 @@ public class RatClient {
 		Socket clientSocket = new Socket("localhost", 13000); 
 
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		PrintWriter writeToServer = new PrintWriter(clientSocket.getOutputStream());
+		PrintWriter writeToServer = new PrintWriter(clientSocket.getOutputStream(), true);
 
 		String serverResponse;
 		RatClient rat = new RatClient();
@@ -43,10 +43,10 @@ public class RatClient {
 
 			// print starting location
 			serverResponse = inFromServer.readLine();
+			System.out.println("FROM SERVER: " + serverResponse);
 			rat.createHead(serverResponse);
 			rat.findBranches(serverResponse);
 			writeToServer.println(rat.move(serverResponse));
-			System.out.println("FROM SERVER: " + serverResponse);
 
 
 			while (true)
@@ -57,15 +57,15 @@ public class RatClient {
 				if(serverResponse == WIN)
 				{
 					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
+					break;
 				}
-
-				if(serverResponse != INVALID_MOVE)
+				else if(serverResponse != INVALID_MOVE)
 				{	
+					System.out.println("~FROM SERVER: " + serverResponse);
 					//rat.currentNode.setLocation(serverResponse);
 					rat.createNode(serverResponse);
 					rat.findBranches(serverResponse);
 					writeToServer.println(rat.move(serverResponse));
-					System.out.println("FROM SERVER: " + serverResponse);
 
 
 				}
@@ -106,7 +106,7 @@ public class RatClient {
 			branches++;
 		}
 
-		if((newMove.charAt(7) == 'p'))
+		if((newMove.charAt(7) != 'w'))
 		{
 			if(tempNode.down == null)
 				tempNode.createNode(2);
@@ -136,8 +136,8 @@ public class RatClient {
 	public void createNode(String serverResponse)
 	{
 		tempNode = new Node();
-		tempNode.setPrevious(currentNode);
 		currentNode.setLocation(serverResponse);
+		tempNode.setPrevious(currentNode);
 		
 	}
 
@@ -285,9 +285,12 @@ public class RatClient {
 		//Node tempHead = new Node(loc, ENUM_FROM_DIR.HEAD, null);
 		//tempNode = tempHead;
 	
-		tempNode = new Node(loc, ENUM_FROM_DIR.HEAD, head);
-		head = tempNode;
-		currentNode = head;
+		head = new Node(loc, ENUM_FROM_DIR.HEAD, null);
+		//head = tempNode;
+		currentNode = new Node();
+		currentNode.setPrevious(head);
+		tempNode = new Node();
+		tempNode.setPrevious(currentNode);
 		addMap();
 		//updateboundries();
 	}
