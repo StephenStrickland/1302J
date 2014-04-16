@@ -88,7 +88,7 @@ public class RatClient {
 	private void findBranches(String newMove) 
 	{
 		int branches = 0;
-		tempNode = null;
+		tempNode = new Node();
 		//ooowrwwpw
 		if((newMove.charAt(3) == 'p'))
 		{
@@ -167,8 +167,8 @@ public class RatClient {
 
 		//the overall order for everything is Right DOWN Left UP
 		//just need to see if theres a difference between !null and enums !null.
-		tempNode.setLocation(newMove);
-		tempNode.setPrevious(currentNode);
+		//tempNode.setLocation(newMove);
+		//tempNode.setPrevious(currentNode);
 		
 
 		if((currentNode.right != null) && (currentNode.right.isDead() != true))
@@ -228,7 +228,7 @@ public class RatClient {
 		j[4] = 'p';
 		j[i] = 'r';
 		
-		String move = new String(Pos);
+		String move = new String(j);
 		
 		
 		return move;
