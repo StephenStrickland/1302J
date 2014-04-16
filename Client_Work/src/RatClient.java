@@ -54,12 +54,13 @@ public class RatClient {
 
 				serverResponse = inFromServer.readLine();
 
-				if(serverResponse == WIN)
+				if(serverResponse.equalsIgnoreCase(WIN))
 				{
 					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
-					break;
+					System.exit(0);
 				}
-				else if(serverResponse != INVALID_MOVE)
+				
+				if(!serverResponse.equals(INVALID_MOVE))
 				{	
 					System.out.println("~FROM SERVER: " + serverResponse);
 					//rat.currentNode.setLocation(serverResponse);
