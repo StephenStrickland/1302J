@@ -8,7 +8,7 @@ Professor: John Vande Ven
 
 To create a Maze server and a Rat Client to communicate over TCP/IP and solve a maze.
 
-The Rat only knows the initial surrounding cells. Visually this is repesented in a grid:
+The Rat only knows the initial surrounding cells. Visually this is repesented in a grid: <br>
 
 ooo <br>
 wrw <br>
@@ -94,4 +94,29 @@ Just the file that contains the enums for the nodes.(not much to explain)
 
 This the "brains" of the rat.
 
-######Order of Operations
+#####Order of Operations
+
+Rat recieves String,Creates the node and Finds available branches. 
+
+Creates the Node: <br>
+After the rat moves, it does not know the next String until the new position comes back from the Server. So it sets the new string to the currentNode.setLocation(). It initializes the node(clean slate) and sets the tempNode.setPrevious() to the currentNode.
+```Java
+public void createNode(String serverResponse)
+{
+tempNode = new Node();
+tempNode.setPrevious(currentNode);
+currentNode.setLocation(serverResponse);
+}
+```
+Finds Branches: <br>
+If branch is available[at index(x)] it initializes the Node on the tempNode(.right, .left), sets the enum for that node(RIGHT, LEFT, UP, DOWN), and updates the rats current position.
+```Java
+if((newMove.charAt(3) == 'p'))
+{
+if(tempNode.left == null)
+tempNode.createNode(3);
+tempNode.left.setENUM(ENUM_FROM_DIR.LEFT);
+branches++;
+}
+```
+
