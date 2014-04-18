@@ -31,7 +31,7 @@ public class SocketServer {
 		//PC 
 		//JReader read = new JReader("C:\\Users\\sstrickland\\Documents\\MazeTest.txt");
 		//mac
-		JReader read = new JReader("/Users/stephen/GitProjects/1302J/MazeTest.txt");
+		JReader read = new JReader("./Maze.txt");
 //		for(int i = 0; i < read.getArr().length)
 //		{
 //		System.out.println(ArrayUtils.subarray(read.getArr(), i));
