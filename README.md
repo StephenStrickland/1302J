@@ -1,8 +1,8 @@
-1302J
+1302J Final Project Rat/Maze
 =====
 
-Creator: Stephen Strickland <br>
-Professor: John Vande Ven
+######Creator: Stephen Strickland <br>
+######Professor: John Vande Ven
 
 #####Purpose:
 
