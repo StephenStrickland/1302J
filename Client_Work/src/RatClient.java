@@ -19,7 +19,7 @@ public class RatClient {
 	Node head = null, currentNode, tempNode;
 	Boolean backtracking = false;
 	//int xy boundries
-	HashMap<Integer, String> positionMap = new HashMap<Integer, String>();
+	HashMap<String, String> positionMap = new HashMap<String, String>();
 	
 	
 	//start of mains
@@ -315,7 +315,7 @@ public class RatClient {
 
 		if(positionMap.containsKey(counter) != true)
 		{
-			positionMap.put(counter, newPosMapValue);
+			positionMap.put(tempNode.getLocation(), newPosMapValue);
 		}
 		else
 			addMap();

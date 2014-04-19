@@ -22,8 +22,9 @@ public class SocketServer {
 		}
 
 		char[] currentCmd = new char[9];
-
+		ServerFrame gui = new ServerFrame();
 		Socket connectionSocket = socket.accept();
+		gui.lblClientsConnected.setText("Clients Connected: 1");
 		BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		//DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		PrintWriter outToClient = new PrintWriter(connectionSocket.getOutputStream(), true);
@@ -37,6 +38,7 @@ public class SocketServer {
 //		System.out.println(ArrayUtils.subarray(read.getArr(), i));
 //		}
 		Maze maze = new Maze(read.getArr());
+		
 		System.out.println("This maze is: " + maze.mazeArr[1].length() +'x' + maze.mazeArr.length);
 		
 		System.out.println("Starting Maze Spot: "+ maze.getStart());
@@ -91,6 +93,7 @@ public class SocketServer {
 			}
 			else
 				System.exit(0);
+			
 			
 
 		}

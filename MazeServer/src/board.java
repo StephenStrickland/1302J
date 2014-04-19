@@ -19,12 +19,11 @@ public class board extends JPanel {
 	public void paint(Graphics g)
 	{
 		super.paint(g);
-//		g.setColor(Color.darkGray);
-//		g.fillRect(45, 60, 16, 16);
+
 		
 		for(int row = 0; row < 100; row++)
 		{
-			for(int col = 0; col < 100; row++)
+			for(int col = 0; col < 100; col++)
 			{
 				if(map.getIndex(col, row).equals("w"))
 				{
@@ -35,8 +34,17 @@ public class board extends JPanel {
 				{
 					g.drawImage(map.getPath(), col*8, row*8, null);
 				}
+				if(map.getIndex(col, row).equals("o"))
+				{
+					g.drawImage(map.getWall(), col*8, row*8, null);
+				}
 			}
 		}
+	}
+
+	public void repaintLoc() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -134,6 +134,14 @@ public class Maze {
 
 
 	}
+	
+	public Integer[] getCurrentLocation() {
+		
+		Integer[] curLoc = new Integer[2];
+		curLoc[0] = row;
+		curLoc[1] = collumn;
+		return curLoc;
+	}
 
 
 
