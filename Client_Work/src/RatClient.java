@@ -168,7 +168,7 @@ public class RatClient {
 		//tempNode.setLocation(newMove);
 		//tempNode.setPrevious(currentNode);
 
-		if(currentNode.isDead() != true)
+		if((currentNode.isDead() != true) || (positionMap.containsValue(mapBuilder(row, column))))
 		{
 			if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true) && (!positionMap.containsValue(mapBuilder(row+1, column))))
 			{
