@@ -22,22 +22,21 @@ public class SocketServer {
 		}
 
 		char[] currentCmd = new char[9];
+		
 		ServerFrame gui = new ServerFrame();
+		JReader read = new JReader("/Users/stephen/GitProjects/1302J/JARS/Maze.txt");
+		Maze maze = new Maze(read.getArr());
+		gui.b.updateLocation(maze.getCurrentLocation());
 		Socket connectionSocket = socket.accept();
-		gui.lblClientsConnected.setText("Clients Connected: 1");
+		
+		
+		
+		gui.lblClientsConnected.setText("Clients Connected");
 		BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		//DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		PrintWriter outToClient = new PrintWriter(connectionSocket.getOutputStream(), true);
 		System.out.println("Server Connected\n");
-		//PC 
-		//JReader read = new JReader("C:\\Users\\sstrickland\\Documents\\MazeTest.txt");
-		//mac
-		JReader read = new JReader("./Maze.txt");
-//		for(int i = 0; i < read.getArr().length)
-//		{
-//		System.out.println(ArrayUtils.subarray(read.getArr(), i));
-//		}
-		Maze maze = new Maze(read.getArr());
+
 		
 		System.out.println("This maze is: " + maze.mazeArr[1].length() +'x' + maze.mazeArr.length);
 		
@@ -82,6 +81,9 @@ public class SocketServer {
 			
 			//ArrayUtils.t
 			System.out.println("New Location: " + newMove);
+			
+			//~~~~~+++++++++===========
+			gui.b.updateLocation(maze.getCurrentLocation());
 
 
 			//byte[] outputBuff = stringToBytesASCII(resultOfMove);
@@ -93,6 +95,7 @@ public class SocketServer {
 			}
 			else
 				System.exit(0);
+			
 			
 			
 

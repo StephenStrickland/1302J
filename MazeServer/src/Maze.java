@@ -142,6 +142,14 @@ public class Maze {
 		curLoc[1] = collumn;
 		return curLoc;
 	}
+	
+	public Integer[] getEndLocation()
+	{
+		Integer[] end = new Integer[2];
+		end[0] = endrow;
+		end[1] = endcol;
+		return end;
+	}
 
 
 

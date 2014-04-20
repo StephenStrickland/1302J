@@ -24,7 +24,7 @@ public class RatClient {
 	
 	//start of mains
 
-	public static void main(String argv[]) throws Exception
+	public static void main(String args[]) throws Exception
 	{
 		String sentence;
 		//BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
@@ -51,6 +51,14 @@ public class RatClient {
 
 			while (true)
 			{
+				try
+				{
+					Thread.sleep(500);
+				}
+				catch(InterruptedException ex)
+				{
+					Thread.currentThread().interrupt();
+				}
 
 				serverResponse = inFromServer.readLine();
 
@@ -123,10 +131,6 @@ public class RatClient {
 			branches++;
 		}
 
-		if((branches == 0))
-		{
-			backtrack();
-		}
 
 		
 	}
@@ -172,7 +176,7 @@ public class RatClient {
 		//tempNode.setPrevious(currentNode);
 		
 
-		if((currentNode.right != null) && (currentNode.right.isDead() != true))
+		if((tempNode.right != null) && (tempNode.right.isDead() != true) && (currentNode.getENUM() != ENUM_FROM_DIR.LEFT))
 		{
 			//move RIGHT
 			row++;
@@ -191,18 +195,23 @@ public class RatClient {
 			tempNode.setENUM(ENUM_FROM_DIR.DOWN);
 			currentNode.down = tempNode;
 		}
-		else if((currentNode.left != null) && (currentNode.left.isDead() != true))
+		else if((tempNode.left != null) && (tempNode.left.isDead() != true) && (currentNode.getENUM() != ENUM_FROM_DIR.RIGHT))
 		{
 			//move LEFT
 			row--;
 			newPos = createString(newMove,3);
+			
+			tempNode.setENUM(ENUM_FROM_DIR.LEFT);
+			currentNode.left = tempNode;
 		}
 
-		else if((currentNode.up != null) && (currentNode.up.isDead() != true))
+		else if((tempNode.up != null) && (tempNode.up.isDead() != true))
 		{
 			//move UP
 			column--;
 			newPos = createString(newMove,1);
+			tempNode.setENUM(ENUM_FROM_DIR.UP);
+			currentNode.up = tempNode;
 		}
 		else
 		{

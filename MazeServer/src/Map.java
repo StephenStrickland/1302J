@@ -8,13 +8,16 @@ public class Map {
 	
 	private String[] mazeArr = read.getArr();
 	
-	private Image wall, path;
+	private Image wall, path, rat;
 	
 	public Map()
 	{
 		ImageIcon image  = new ImageIcon("/Users/stephen/GitProjects/1302J/JARS/img/wall.png");
 		wall = image.getImage();
 		image = new ImageIcon("/Users/stephen/GitProjects/1302J/JARS/img/path.png");
+		path = image.getImage();
+		image = new ImageIcon("/Users/stephen/GitProjects/1302J/JARS/img/rat.png");
+		rat = image.getImage();
 	}
 	
 	public Image getPath()
@@ -25,6 +28,10 @@ public class Map {
 	public Image getWall()
 	{
 		return wall;
+	}
+	public Image getRat()
+	{
+		return rat;
 	}
 	
 	public String getIndex(int x, int y)

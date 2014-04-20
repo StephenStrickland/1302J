@@ -25,24 +25,20 @@ public class ServerFrame extends JFrame {
 	JLabel lblClientsConnected;
 	public ServerFrame() {
 		setTitle("Maze Server");
-		setMinimumSize(new Dimension(800, 800));
+		setMinimumSize(new Dimension(830, 872));
 		getContentPane().setLayout(new CardLayout(0, 0));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		panel.setMinimumSize(new Dimension(750, 750));
 		getContentPane().add(panel, "name_1397937270295564000");
 		panel.setBackground(Color.orange);
 		panel.setLayout(new MigLayout("", "[800px,grow]", "[][29px,grow]"));
-		
-		JButton btnStart = new JButton("Start");
-		panel.add(btnStart, "flowx,cell 0 0,alignx left,aligny top");
 		
 		//JPanel panel_1 = new JPanel();
 		
 		panel.add(b, "cell 0 1,grow");
 		
-		lblClientsConnected = new JLabel("Clients Connected: 0");
+		lblClientsConnected = new JLabel("Waiting for Client to Connect...");
 		lblClientsConnected.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panel.add(lblClientsConnected, "cell 0 0");
 		
