@@ -176,7 +176,7 @@ public class RatClient {
 		//tempNode.setPrevious(currentNode);
 		
 
-		if((tempNode.right != null) && (tempNode.right.isDead() != true) && (currentNode.getENUM() != ENUM_FROM_DIR.LEFT))
+		if(NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true)
 		{
 			//move RIGHT
 			row++;
@@ -187,7 +187,7 @@ public class RatClient {
 			
 			
 		}
-		else if((tempNode.down != null) && (tempNode.down.isDead() != true))
+		else if(NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true)
 		{
 			//move DOWN
 			column++;
@@ -195,7 +195,7 @@ public class RatClient {
 			tempNode.setENUM(ENUM_FROM_DIR.DOWN);
 			currentNode.down = tempNode;
 		}
-		else if((tempNode.left != null) && (tempNode.left.isDead() != true) && (currentNode.getENUM() != ENUM_FROM_DIR.RIGHT))
+		else if(NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true)
 		{
 			//move LEFT
 			row--;
@@ -205,7 +205,7 @@ public class RatClient {
 			currentNode.left = tempNode;
 		}
 
-		else if((tempNode.up != null) && (tempNode.up.isDead() != true))
+		else if(NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true)
 		{
 			//move UP
 			column--;
@@ -227,6 +227,19 @@ public class RatClient {
 		
 		return newPos;
 
+	}
+	
+	private Boolean NodeTest(Node nod, ENUM_FROM_DIR en)
+	{
+		Boolean isAvailable;
+		
+		if((nod != null) && (nod.isDead() != true) && currentNode.getENUM() != en)
+			isAvailable = true;
+			else
+				isAvailable = false;
+		
+		return isAvailable;
+		
 	}
 
 
