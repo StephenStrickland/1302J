@@ -53,7 +53,7 @@ public class RatClient {
 			{
 				try
 				{
-					Thread.sleep(100);
+					Thread.sleep(80);
 				}
 				catch(InterruptedException ex)
 				{
@@ -67,7 +67,7 @@ public class RatClient {
 					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
 					System.exit(0);
 				}
-				
+
 				if(!serverResponse.equals(INVALID_MOVE))
 				{	
 					System.out.println("~FROM SERVER: " + serverResponse);
@@ -84,8 +84,6 @@ public class RatClient {
 				}
 
 
-				//rat.repaint();
-
 			}
 		}
 		finally
@@ -99,7 +97,7 @@ public class RatClient {
 		int branches = 0;
 		//tempNode = new Node();
 		//ooowrwwpw
-		if((newMove.charAt(3) == 'p'))
+		if((newMove.charAt(3) == 'p') && (!positionMap.containsValue(mapBuilder(row-1, column))))
 		{
 			if(tempNode.left == null)
 				tempNode.createNode(3);
@@ -107,7 +105,7 @@ public class RatClient {
 			branches++;
 		}
 
-		if((newMove.charAt(5) == 'p'))
+		if((newMove.charAt(5) == 'p') && (!positionMap.containsValue(mapBuilder(row+1, column))))
 		{
 			if(tempNode.right == null)
 				tempNode.createNode(1);
@@ -115,7 +113,7 @@ public class RatClient {
 			branches++;
 		}
 
-		if((newMove.charAt(7) != 'w'))
+		if((newMove.charAt(7) != 'w') && (!positionMap.containsValue(mapBuilder(row, column+1))))
 		{
 			if(tempNode.down == null)
 				tempNode.createNode(2);
@@ -123,7 +121,7 @@ public class RatClient {
 			tempNode.down.setENUM(ENUM_FROM_DIR.DOWN);
 			branches++;
 		}
-		if((newMove.charAt(1) == 'p'))
+		if((newMove.charAt(1) == 'p') && (!positionMap.containsValue(mapBuilder(row, column-1))) )
 		{
 			if(tempNode.up == null)
 				tempNode.createNode(4);
@@ -143,12 +141,12 @@ public class RatClient {
 		currentNode.setLocation(serverResponse);
 		if(currentNode.isDead() != true)
 		{
-		tempNode = null;
-		tempNode = new Node();
-		tempNode.setPrevious(currentNode);
-		findBranches(serverResponse);
+			tempNode = null;
+			tempNode = new Node();
+			tempNode.setPrevious(currentNode);
+			findBranches(serverResponse);
 		}
-		
+
 	}
 
 
@@ -182,7 +180,7 @@ public class RatClient {
 		
 		if(currentNode.isDead() != true)
 		{
-		if(NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true)
+		if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true))
 		{
 			//move RIGHT
 			row++;
@@ -193,7 +191,7 @@ public class RatClient {
 			
 			
 		}
-		else if(NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true)
+		else if((NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true))
 		{
 			//move DOWN
 			column++;
@@ -201,7 +199,7 @@ public class RatClient {
 			tempNode.setENUM(ENUM_FROM_DIR.DOWN);
 			currentNode.down = tempNode;
 		}
-		else if(NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true)
+		else if((NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true)) 
 		{
 			//move LEFT
 			row--;
@@ -211,7 +209,7 @@ public class RatClient {
 			currentNode.left = tempNode;
 		}
 
-		else if(NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true)
+		else if((NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true))
 		{
 			//move UP
 			column--;
@@ -343,27 +341,33 @@ public class RatClient {
 
 
 
+	private String mapBuilder(int x, int y)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(x);
+		sb.append('~');
+		sb.append(y);
+		
+		String newPosMapValue = sb.toString();
+		return newPosMapValue;
 
+	}
 
 	private void addMap() {
 		counter++;
-		StringBuilder sb = new StringBuilder();
-		sb.append(column);
-		sb.append('~');
-		sb.append(row);
+		
 		//change this  - key is a string of the location, (x~y) then value is the current Node;
 
 		//x~y makes sure it can keep up with negative values. 
 		// ---- dash changed to tilde-----
 
-		String newPosMapValue = sb.toString();
+		
 
-		if(positionMap.containsKey(counter) != true)
-		{
-			positionMap.put(tempNode.getLocation(), newPosMapValue);
-		}
-		else
-			addMap();
+	
+			positionMap.put(tempNode.getLocation(), mapBuilder(row, column));
+	
+		
+			//addMap();
 
 	}
 
