@@ -94,39 +94,35 @@ public class RatClient {
 	
 	private void findBranches(String newMove) 
 	{
-		int branches = 0;
 		//tempNode = new Node();
 		//ooowrwwpw
-		if((newMove.charAt(3) == 'p') && (!positionMap.containsValue(mapBuilder(row-1, column))))
+		if((newMove.charAt(3) == 'p'))
 		{
 			if(tempNode.left == null)
 				tempNode.createNode(3);
 			tempNode.left.setENUM(ENUM_FROM_DIR.LEFT);
-			branches++;
+
 		}
 
-		if((newMove.charAt(5) == 'p') && (!positionMap.containsValue(mapBuilder(row+1, column))))
+		if((newMove.charAt(5) == 'p'))
 		{
 			if(tempNode.right == null)
 				tempNode.createNode(1);
 			tempNode.right.setENUM(ENUM_FROM_DIR.RIGHT);
-			branches++;
 		}
 
-		if((newMove.charAt(7) != 'w') && (!positionMap.containsValue(mapBuilder(row, column+1))))
+		if((newMove.charAt(7) != 'w'))
 		{
 			if(tempNode.down == null)
 				tempNode.createNode(2);
 				
 			tempNode.down.setENUM(ENUM_FROM_DIR.DOWN);
-			branches++;
 		}
-		if((newMove.charAt(1) == 'p') && (!positionMap.containsValue(mapBuilder(row, column-1))) )
+		if((newMove.charAt(1) == 'p'))
 		{
 			if(tempNode.up == null)
 				tempNode.createNode(4);
 			tempNode.up.setENUM(ENUM_FROM_DIR.UP);
-			branches++;
 		}
 
 
@@ -180,7 +176,7 @@ public class RatClient {
 		
 		if(currentNode.isDead() != true)
 		{
-		if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true))
+		if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true) && (!positionMap.containsValue(mapBuilder(row+1, column))))
 		{
 			//move RIGHT
 			row++;
@@ -191,7 +187,7 @@ public class RatClient {
 			
 			
 		}
-		else if((NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true))
+		else if((NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true) && (!positionMap.containsValue(mapBuilder(row, column+1))))
 		{
 			//move DOWN
 			column++;
@@ -199,7 +195,7 @@ public class RatClient {
 			tempNode.setENUM(ENUM_FROM_DIR.DOWN);
 			currentNode.down = tempNode;
 		}
-		else if((NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true)) 
+		else if((NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true) && (!positionMap.containsValue(mapBuilder(row-1, column))))
 		{
 			//move LEFT
 			row--;
@@ -209,7 +205,7 @@ public class RatClient {
 			currentNode.left = tempNode;
 		}
 
-		else if((NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true))
+		else if((NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true) && (!positionMap.containsValue(mapBuilder(row, column-1))))
 		{
 			//move UP
 			column--;
