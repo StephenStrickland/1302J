@@ -219,8 +219,12 @@ public class RatClient {
 			currentNode.up = tempNode;
 		}
 		else
+		{
 			//all else is null backtrack.
 			newPos = backtrack();
+		}
+		currentNode = tempNode;
+		
 		}
 		else
 			newPos = backtrack();
@@ -228,9 +232,8 @@ public class RatClient {
 		
 		addMap();
 		//updateBoundries();
-		currentNode = tempNode;
-		tempNode = null;
 		
+		tempNode = null;
 		return newPos;
 
 	}
@@ -270,20 +273,29 @@ public class RatClient {
 		int ratPos = 0;
 		//char[] pos = currentNode.getLocation().toCharArray();
 
-		switch (currentNode.getENUM()) {
+		switch (currentNode.fromDir) {
 		case DOWN:
 			ratPos = 1;
+			currentNode.setDead(true);
+			currentNode.getPrevious().down.setDead(true);
 			break;
 		case UP:
 			ratPos = 7;
+			currentNode.setDead(true);
+			currentNode.getPrevious().up.setDead(true);
 			break;
+		
 
 		case LEFT:
 			ratPos = 5;
+			currentNode.setDead(true);
+			currentNode.getPrevious().left.setDead(true);
 			break;
 
 		case RIGHT:
 			ratPos = 3;
+			currentNode.setDead(true);
+			currentNode.getPrevious().right.setDead(true);
 			break;
 
 		case HEAD:
@@ -297,8 +309,9 @@ public class RatClient {
 		//pos[ratPos] = 'r';
 
 		String new_Bactrack = createString(currentNode.getLocation(), ratPos);
-
+		
 		tempNode.setDead(true);
+		currentNode = currentNode.getPrevious();
 		currentNode.setDead(true);
 //		Node tempNode = currentNode.getPrevious();
 //		currentNode = tempNode;
