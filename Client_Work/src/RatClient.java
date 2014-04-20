@@ -128,7 +128,7 @@ public class RatClient {
 
 	public void createNode(String serverResponse)
 	{
-		if(currentNode.isDead() != true)
+		if(tempNode.isDead() != true)
 		{
 			currentNode.setLocation(serverResponse);
 			tempNode = null;
@@ -168,7 +168,7 @@ public class RatClient {
 		//tempNode.setLocation(newMove);
 		//tempNode.setPrevious(currentNode);
 
-		if((currentNode.isDead() != true) || (positionMap.containsValue(mapBuilder(row, column))))
+		if((tempNode.isDead() != true) || (positionMap.containsValue(mapBuilder(row, column))))
 		{
 			if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true))
 			{
@@ -212,7 +212,6 @@ public class RatClient {
 				//all else is null backtrack.
 				newPos = backtrack();
 			}
-			addMap();
 			currentNode = tempNode;
 
 		}
@@ -223,6 +222,7 @@ public class RatClient {
 		//updateBoundries();
 
 
+		addMap();
 		return newPos;
 
 	}
@@ -261,7 +261,7 @@ public class RatClient {
 		//the order of
 		int ratPos = 0;
 
-		switch (currentNode.fromDir) {
+		switch (currentNode.getENUM()) {
 		case DOWN:
 			column++;
 			ratPos = 1;
