@@ -143,6 +143,7 @@ public class RatClient {
 		currentNode.setLocation(serverResponse);
 		if(currentNode.isDead() != true)
 		{
+		tempNode = null;
 		tempNode = new Node();
 		tempNode.setPrevious(currentNode);
 		findBranches(serverResponse);
@@ -233,7 +234,7 @@ public class RatClient {
 		addMap();
 		//updateBoundries();
 		
-		tempNode = null;
+		
 		return newPos;
 
 	}
@@ -311,8 +312,10 @@ public class RatClient {
 		String new_Bactrack = createString(currentNode.getLocation(), ratPos);
 		
 		tempNode.setDead(true);
-		currentNode = currentNode.getPrevious();
-		currentNode.setDead(true);
+		Node tempNod = currentNode.getPrevious();
+		currentNode = tempNod;
+		tempNode = tempNod;
+		//currentNode.setDead(true);
 //		Node tempNode = currentNode.getPrevious();
 //		currentNode = tempNode;
 		return new_Bactrack;
@@ -330,7 +333,7 @@ public class RatClient {
 	
 		head = new Node(loc, ENUM_FROM_DIR.HEAD, null);
 		//head = tempNode;
-		currentNode = new Node();
+		currentNode = head;
 		currentNode.setPrevious(head);
 		tempNode = new Node();
 		tempNode.setPrevious(currentNode);
