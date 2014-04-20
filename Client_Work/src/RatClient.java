@@ -20,8 +20,8 @@ public class RatClient {
 	Boolean backtracking = false;
 	//int xy boundries
 	HashMap<String, String> positionMap = new HashMap<String, String>();
-	
-	
+
+
 	//start of mains
 
 	public static void main(String args[]) throws Exception
@@ -39,15 +39,12 @@ public class RatClient {
 		try
 		{
 
-			//DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-
 			// print starting location
 			serverResponse = inFromServer.readLine();
 			System.out.println("FROM SERVER: " + serverResponse);
 			rat.createHead(serverResponse);
 			rat.findBranches(serverResponse);
 			writeToServer.println(rat.move(serverResponse));
-
 
 			while (true)
 			{
@@ -91,17 +88,14 @@ public class RatClient {
 			clientSocket.close();
 		}
 	}
-	
+
 	private void findBranches(String newMove) 
 	{
-		//tempNode = new Node();
-		//ooowrwwpw
 		if((newMove.charAt(3) == 'p'))
 		{
 			if(tempNode.left == null)
 				tempNode.createNode(3);
 			tempNode.left.setENUM(ENUM_FROM_DIR.LEFT);
-
 		}
 
 		if((newMove.charAt(5) == 'p'))
@@ -115,7 +109,7 @@ public class RatClient {
 		{
 			if(tempNode.down == null)
 				tempNode.createNode(2);
-				
+
 			tempNode.down.setENUM(ENUM_FROM_DIR.DOWN);
 		}
 		if((newMove.charAt(1) == 'p'))
@@ -126,7 +120,7 @@ public class RatClient {
 		}
 
 
-		
+
 	}
 
 	//end of mains
@@ -134,9 +128,9 @@ public class RatClient {
 
 	public void createNode(String serverResponse)
 	{
-		currentNode.setLocation(serverResponse);
 		if(currentNode.isDead() != true)
 		{
+			currentNode.setLocation(serverResponse);
 			tempNode = null;
 			tempNode = new Node();
 			tempNode.setPrevious(currentNode);
@@ -173,91 +167,91 @@ public class RatClient {
 		//just need to see if theres a difference between !null and enums !null.
 		//tempNode.setLocation(newMove);
 		//tempNode.setPrevious(currentNode);
-		
+
 		if(currentNode.isDead() != true)
 		{
-		if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true) && (!positionMap.containsValue(mapBuilder(row+1, column))))
-		{
-			//move RIGHT
-			row++;
-			newPos = createString(newMove,5);
+			if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true) && (!positionMap.containsValue(mapBuilder(row+1, column))))
+			{
+				//move RIGHT
+				row++;
+				newPos = createString(newMove,5);
 
-			tempNode.setENUM(ENUM_FROM_DIR.RIGHT);
-			currentNode.right = tempNode;
-			
-			
-		}
-		else if((NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true) && (!positionMap.containsValue(mapBuilder(row, column+1))))
-		{
-			//move DOWN
-			column++;
-			newPos = createString(newMove,7);
-			tempNode.setENUM(ENUM_FROM_DIR.DOWN);
-			currentNode.down = tempNode;
-		}
-		else if((NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true) && (!positionMap.containsValue(mapBuilder(row-1, column))))
-		{
-			//move LEFT
-			row--;
-			newPos = createString(newMove,3);
-			
-			tempNode.setENUM(ENUM_FROM_DIR.LEFT);
-			currentNode.left = tempNode;
-		}
+				tempNode.setENUM(ENUM_FROM_DIR.RIGHT);
+				currentNode.right = tempNode;
 
-		else if((NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true) && (!positionMap.containsValue(mapBuilder(row, column-1))))
-		{
-			//move UP
-			column--;
-			newPos = createString(newMove,1);
-			tempNode.setENUM(ENUM_FROM_DIR.UP);
-			currentNode.up = tempNode;
+
+			}
+			else if((NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true) && (!positionMap.containsValue(mapBuilder(row, column+1))))
+			{
+				//move DOWN
+				column++;
+				newPos = createString(newMove,7);
+				tempNode.setENUM(ENUM_FROM_DIR.DOWN);
+				currentNode.down = tempNode;
+			}
+			else if((NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true) && (!positionMap.containsValue(mapBuilder(row-1, column))))
+			{
+				//move LEFT
+				row--;
+				newPos = createString(newMove,3);
+
+				tempNode.setENUM(ENUM_FROM_DIR.LEFT);
+				currentNode.left = tempNode;
+			}
+
+			else if((NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true) && (!positionMap.containsValue(mapBuilder(row, column-1))))
+			{
+				//move UP
+				column--;
+				newPos = createString(newMove,1);
+				tempNode.setENUM(ENUM_FROM_DIR.UP);
+				currentNode.up = tempNode;
+			}
+			else
+			{
+				//all else is null backtrack.
+				newPos = backtrack();
+			}
+			currentNode = tempNode;
+
 		}
 		else
-		{
-			//all else is null backtrack.
 			newPos = backtrack();
-		}
-		currentNode = tempNode;
-		
-		}
-		else
-			newPos = backtrack();
-		
-		
+
+
 		addMap();
 		//updateBoundries();
-		
-		
+
+
 		return newPos;
 
 	}
-	
+
 	private Boolean NodeTest(Node nod, ENUM_FROM_DIR en)
 	{
 		Boolean isAvailable;
-		
+
 		if((nod != null) && (nod.isDead() != true) && currentNode.getENUM() != en)
 			isAvailable = true;
-			else
-				isAvailable = false;
-		
+		else
+			isAvailable = false;
+
 		return isAvailable;
-		
+
 	}
 
 
 
 	private String createString(String Pos, int i) {
-		
+
 		char[] j = Pos.toCharArray();
-		
+
 		j[4] = 'p';
 		j[i] = 'r';
-		
+
 		String move = new String(j);
-		
-		
+
+
 		return move;
 	}
 
@@ -266,7 +260,6 @@ public class RatClient {
 		//test for other available branches
 		//the order of
 		int ratPos = 0;
-		//char[] pos = currentNode.getLocation().toCharArray();
 
 		switch (currentNode.fromDir) {
 		case DOWN:
@@ -279,7 +272,7 @@ public class RatClient {
 			currentNode.setDead(true);
 			currentNode.getPrevious().up.setDead(true);
 			break;
-		
+
 
 		case LEFT:
 			ratPos = 5;
@@ -300,18 +293,15 @@ public class RatClient {
 			break;
 		}
 
-		//pos[4] = 'p';
-		//pos[ratPos] = 'r';
-
 		String new_Bactrack = createString(currentNode.getLocation(), ratPos);
-		
+
 		tempNode.setDead(true);
 		Node tempNod = currentNode.getPrevious();
 		currentNode = tempNod;
 		tempNode = tempNod;
 		//currentNode.setDead(true);
-//		Node tempNode = currentNode.getPrevious();
-//		currentNode = tempNode;
+		//		Node tempNode = currentNode.getPrevious();
+		//		currentNode = tempNode;
 		return new_Bactrack;
 	}
 
@@ -322,9 +312,6 @@ public class RatClient {
 	private void createHead(String loc) 
 	{
 		//	Creates head
-		//Node tempHead = new Node(loc, ENUM_FROM_DIR.HEAD, null);
-		//tempNode = tempHead;
-	
 		head = new Node(loc, ENUM_FROM_DIR.HEAD, null);
 		//head = tempNode;
 		currentNode = head;
@@ -343,7 +330,7 @@ public class RatClient {
 		sb.append(x);
 		sb.append('~');
 		sb.append(y);
-		
+
 		String newPosMapValue = sb.toString();
 		return newPosMapValue;
 
@@ -351,19 +338,19 @@ public class RatClient {
 
 	private void addMap() {
 		counter++;
-		
+
 		//change this  - key is a string of the location, (x~y) then value is the current Node;
 
 		//x~y makes sure it can keep up with negative values. 
 		// ---- dash changed to tilde-----
 
-		
 
-	
-			positionMap.put(tempNode.getLocation(), mapBuilder(row, column));
-	
-		
-			//addMap();
+
+
+		positionMap.put(tempNode.getLocation(), mapBuilder(row, column));
+
+
+		//addMap();
 
 	}
 
