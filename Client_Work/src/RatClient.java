@@ -53,7 +53,7 @@ public class RatClient {
 			{
 				try
 				{
-					Thread.sleep(500);
+					Thread.sleep(100);
 				}
 				catch(InterruptedException ex)
 				{
@@ -73,7 +73,7 @@ public class RatClient {
 					System.out.println("~FROM SERVER: " + serverResponse);
 					//rat.currentNode.setLocation(serverResponse);
 					rat.createNode(serverResponse);
-					rat.findBranches(serverResponse);
+					//rat.findBranches(serverResponse);
 					writeToServer.println(rat.move(serverResponse));
 
 
@@ -140,9 +140,13 @@ public class RatClient {
 
 	public void createNode(String serverResponse)
 	{
-		tempNode = new Node();
 		currentNode.setLocation(serverResponse);
+		if(currentNode.isDead() != true)
+		{
+		tempNode = new Node();
 		tempNode.setPrevious(currentNode);
+		findBranches(serverResponse);
+		}
 		
 	}
 
@@ -175,7 +179,8 @@ public class RatClient {
 		//tempNode.setLocation(newMove);
 		//tempNode.setPrevious(currentNode);
 		
-
+		if(currentNode.isDead() != true)
+		{
 		if(NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true)
 		{
 			//move RIGHT
@@ -214,10 +219,11 @@ public class RatClient {
 			currentNode.up = tempNode;
 		}
 		else
-		{
 			//all else is null backtrack.
 			newPos = backtrack();
 		}
+		else
+			newPos = backtrack();
 		
 		
 		addMap();
@@ -262,7 +268,7 @@ public class RatClient {
 		//test for other available branches
 		//the order of
 		int ratPos = 0;
-		char[] pos = currentNode.getLocation().toCharArray();
+		//char[] pos = currentNode.getLocation().toCharArray();
 
 		switch (currentNode.getENUM()) {
 		case DOWN:
@@ -287,14 +293,15 @@ public class RatClient {
 			break;
 		}
 
-		pos[4] = 'p';
-		pos[ratPos] = 'r';
+		//pos[4] = 'p';
+		//pos[ratPos] = 'r';
 
-		String new_Bactrack = new String(pos);
+		String new_Bactrack = createString(currentNode.getLocation(), ratPos);
 
-		currentNode.deadEnd = true;
-		Node tempNode = currentNode.getPrevious();
-		currentNode = tempNode;
+		tempNode.setDead(true);
+		currentNode.setDead(true);
+//		Node tempNode = currentNode.getPrevious();
+//		currentNode = tempNode;
 		return new_Bactrack;
 	}
 
