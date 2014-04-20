@@ -170,7 +170,7 @@ public class RatClient {
 
 		if((currentNode.isDead() != true) || (positionMap.containsValue(mapBuilder(row, column))))
 		{
-			if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true) && (!positionMap.containsValue(mapBuilder(row+1, column))))
+			if((NodeTest(tempNode.right, ENUM_FROM_DIR.LEFT) == true))
 			{
 				//move RIGHT
 				row++;
@@ -181,7 +181,7 @@ public class RatClient {
 
 
 			}
-			else if((NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true) && (!positionMap.containsValue(mapBuilder(row, column+1))))
+			else if((NodeTest(tempNode.down, ENUM_FROM_DIR.UP) == true))
 			{
 				//move DOWN
 				column++;
@@ -189,7 +189,7 @@ public class RatClient {
 				tempNode.setENUM(ENUM_FROM_DIR.DOWN);
 				currentNode.down = tempNode;
 			}
-			else if((NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true) && (!positionMap.containsValue(mapBuilder(row-1, column))))
+			else if((NodeTest(tempNode.left, ENUM_FROM_DIR.RIGHT) == true))
 			{
 				//move LEFT
 				row--;
@@ -198,8 +198,8 @@ public class RatClient {
 				tempNode.setENUM(ENUM_FROM_DIR.LEFT);
 				currentNode.left = tempNode;
 			}
-
-			else if((NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true) && (!positionMap.containsValue(mapBuilder(row, column-1))))
+// && (!positionMap.containsValue(mapBuilder(row, column-1)))
+			else if((NodeTest(tempNode.up, ENUM_FROM_DIR.DOWN) == true))
 			{
 				//move UP
 				column--;
@@ -212,6 +212,7 @@ public class RatClient {
 				//all else is null backtrack.
 				newPos = backtrack();
 			}
+			addMap();
 			currentNode = tempNode;
 
 		}
@@ -219,7 +220,6 @@ public class RatClient {
 			newPos = backtrack();
 
 
-		addMap();
 		//updateBoundries();
 
 
@@ -263,11 +263,13 @@ public class RatClient {
 
 		switch (currentNode.fromDir) {
 		case DOWN:
+			column++;
 			ratPos = 1;
 			currentNode.setDead(true);
 			currentNode.getPrevious().down.setDead(true);
 			break;
 		case UP:
+			column--;
 			ratPos = 7;
 			currentNode.setDead(true);
 			currentNode.getPrevious().up.setDead(true);
@@ -275,12 +277,14 @@ public class RatClient {
 
 
 		case LEFT:
+			row--;
 			ratPos = 5;
 			currentNode.setDead(true);
 			currentNode.getPrevious().left.setDead(true);
 			break;
 
 		case RIGHT:
+			row++;
 			ratPos = 3;
 			currentNode.setDead(true);
 			currentNode.getPrevious().right.setDead(true);
@@ -337,21 +341,7 @@ public class RatClient {
 	}
 
 	private void addMap() {
-		counter++;
-
-		//change this  - key is a string of the location, (x~y) then value is the current Node;
-
-		//x~y makes sure it can keep up with negative values. 
-		// ---- dash changed to tilde-----
-
-
-
-
 		positionMap.put(tempNode.getLocation(), mapBuilder(row, column));
-
-
-		//addMap();
-
 	}
 
 	//TESTING build several mazes slowly gaining complexity to the nth degree.
