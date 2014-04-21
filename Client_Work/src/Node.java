@@ -42,13 +42,28 @@ public class Node{
 	{
 		switch(i)
 		{
-			case 1: right = new Node();
+			case 1: if (right != null) break; 
+				right = new Node();
+			this.right.setENUM(ENUM_FROM_DIR.RIGHT);
+			this.right.previous = this;
 			break;
-			case 2: down = new Node();
+			case 2:
+				if (down != null) break;
+				down = new Node();
+			this.down.setENUM(ENUM_FROM_DIR.DOWN);
+			this.down.previous = this;
 			break;
-			case 3: left = new Node();
+			case 3: 
+				if (left != null) break;
+				left = new Node();
+			this.left.setENUM(ENUM_FROM_DIR.LEFT);
+			this.left.previous = this;
 			break;
-			case 4: up = new Node();
+			case 4: 
+				if (up !=null) break;
+				up = new Node();
+			this.up.setENUM(ENUM_FROM_DIR.UP);
+			this.up.previous = this;
 			break;
 		}
 		
