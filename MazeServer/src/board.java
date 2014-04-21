@@ -22,12 +22,13 @@ public class board extends JPanel implements ActionListener {
 		
 	}
 	
-	
 	public void actionPerformed(ActionEvent e)
 	{
+		//calls repaint method
 		repaint();
 		
 	}
+	
 	public void paint(Graphics g)
 	{
 		super.paint(g);
@@ -53,9 +54,7 @@ public class board extends JPanel implements ActionListener {
 				}
 			}
 		}
-	
 
-		
 		//Draw Start
 		g.drawImage(map.getRat(), newCol*8, newRow*8, null);
 	}
@@ -66,6 +65,7 @@ public class board extends JPanel implements ActionListener {
 		endRow = newLoc[0];
 		endCol = newLoc[1];
 	}
+	
 	//setting the start location
 	public void updateLocation(Integer[] newLoc) 
 	{

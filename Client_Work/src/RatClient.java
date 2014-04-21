@@ -50,7 +50,7 @@ public class RatClient {
 			{
 				try
 				{
-					Thread.sleep(80);
+					Thread.sleep(0);
 				}
 				catch(InterruptedException ex)
 				{

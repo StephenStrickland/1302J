@@ -18,6 +18,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Component;
+import java.awt.SystemColor;
 
 
 public class ServerFrame extends JFrame {
@@ -25,13 +26,14 @@ public class ServerFrame extends JFrame {
 	JLabel lblClientsConnected;
 	public ServerFrame() {
 		setTitle("Maze Server");
-		setMinimumSize(new Dimension(830, 872));
+		setMinimumSize(new Dimension(832, 875));
+		setMaximumSize(new Dimension(832, 875));
 		getContentPane().setLayout(new CardLayout(0, 0));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, "name_1397937270295564000");
-		panel.setBackground(Color.orange);
+		panel.setBackground(new Color(238, 238, 238));
 		panel.setLayout(new MigLayout("", "[800px,grow]", "[][29px,grow]"));
 		
 		//JPanel panel_1 = new JPanel();

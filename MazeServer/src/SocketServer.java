@@ -31,7 +31,7 @@ public class SocketServer {
 		
 		
 		
-		gui.lblClientsConnected.setText("Clients Connected");
+		gui.lblClientsConnected.setText("Client Connected");
 		BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		//DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		PrintWriter outToClient = new PrintWriter(connectionSocket.getOutputStream(), true);
