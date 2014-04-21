@@ -27,6 +27,7 @@ public class RatClient {
 	public static void main(String args[]) throws Exception
 	{
 		String sentence;
+		ClientFrame gui = new ClientFrame();
 		//BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
 		Socket clientSocket = new Socket("localhost", 13000); 
 
