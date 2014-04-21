@@ -32,7 +32,7 @@ public class board extends JPanel implements ActionListener {
 	{
 		super.paint(g);
 
-		
+		//iterate through the array and draw the images.
 		for(int row = 0; row < 100; row++)
 		{
 			for(int col = 0; col < 100; col++)
@@ -46,18 +46,15 @@ public class board extends JPanel implements ActionListener {
 				{
 					g.drawImage(map.getPath(), col*8, row*8, null);
 				}
-//				if(map.getIndex(col, row).equals("r"))
-//				{
-//					g.drawImage(map.getRat(), col*8, row*8, null);
-//				}
+				
 				if(map.getIndex(col, row).equals("o"))
 				{
-					g.drawImage(map.getWall(), col*8, row*8, null);
+					g.drawImage(map.getOut(), col*8, row*8, null);
 				}
 			}
 		}
-		//Draw End
-		//g.drawImage(img, endCol*8, endRow*8, null);
+	
+
 		
 		//Draw Start
 		g.drawImage(map.getRat(), newCol*8, newRow*8, null);
