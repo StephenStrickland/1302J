@@ -37,6 +37,7 @@ public class JReader {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Error Reading File");
 
 		}
 	}

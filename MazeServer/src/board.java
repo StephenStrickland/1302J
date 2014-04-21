@@ -22,6 +22,7 @@ public class Board extends JPanel implements ActionListener {
 	public Board() {
 		map = new Map();
 		//updates the board every 25 milliseconds. Calls actionpPrformed();
+		timer  = new Timer(25, this);
 		timer.start();
 	}
 	
