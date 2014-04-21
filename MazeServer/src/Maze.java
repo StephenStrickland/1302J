@@ -1,19 +1,15 @@
+//Stephen Strickland
+//This is the maze class, it handles the current location of the rat and its movements
 
-import java.util.Arrays;
 import java.lang.StringBuilder;
-
-
+//this is a fantastic library...
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 
 public class Maze {
 
 	char[] newMove = new char[9];
-
 	int row, collumn,start, end, endcol, endrow, request;
 	String[] mazeArr;
-
-
 
 	public Maze(String[] arr)
 	{
@@ -22,15 +18,12 @@ public class Maze {
 		findStartEnd(arr[1], arr[98]);
 	}
 
-
-
 	public String getStart() 
 	{
 		//gets the initial start position String
 		String startLoc = new String(getLocation());
 		return startLoc;
 	}
-
 
 
 	private void findStartEnd(String fStart, String fEnd) 
@@ -46,21 +39,15 @@ public class Maze {
 		endcol = end;
 	}
 
-
-
 	public char[] move(char[] tempMove)
 	{
 		int pos;
 		char[] currLoc = getLocation(); 
 		char[] newLoc = null;
 
-
-		//pos = Arrays.binarySearch(tempMove, 'r');
 		pos = ArrayUtils.indexOf(tempMove, 'r');
-		//pos = Arrays.binarySearch(tempMove, 'r');
 
 		System.out.println("\nindex of rat in char[] : " + pos);
-
 
 		if(currLoc[pos] != 'w')
 		{
@@ -83,30 +70,6 @@ public class Maze {
 				break;
 			}
 
-			//			if (pos == 1)
-			//			{
-			//				//up
-			//				--row;
-			//			}
-			//
-			//			if (pos == 3)
-			//			{
-			//				//left
-			//				--collumn;
-			//			}
-			//
-			//			if (pos == 5)
-			//			{
-			//				//rightooowpwwrw
-			//				++collumn;
-			//			}
-			//
-			//			if (pos == 7)
-			//			{
-			//				//down
-			//				++row;
-			//			}
-
 			if((row == endrow) && (collumn == endcol) )
 			{
 				newLoc = "ooooooooo".toCharArray();
@@ -125,24 +88,22 @@ public class Maze {
 		}
 		else
 		{
-			System.err.println("Attempted Move: " + tempMove);
+			System.err.println("Attempted Move: " + tempMove.toString());
 			newLoc = "rrrrrrrrr".toCharArray();
 			System.out.println("Invalid move");
 		}
 
 		return newLoc;
-
-
 	}
-	
+
 	public Integer[] getCurrentLocation() {
-		
+
 		Integer[] curLoc = new Integer[2];
 		curLoc[0] = row;
 		curLoc[1] = collumn;
 		return curLoc;
 	}
-	
+
 	public Integer[] getEndLocation()
 	{
 		Integer[] end = new Integer[2];
@@ -150,8 +111,6 @@ public class Maze {
 		end[1] = endcol;
 		return end;
 	}
-
-
 
 	private char[] getLocation() {
 		char[] location = new char[9];
@@ -179,22 +138,5 @@ public class Maze {
 		// need row-1, row, row+1
 		return location;
 	}
-
-
-
-	//	private void updateMaze(int tempRow, int tempCol) {
-	//		// TODO Auto-generated method stub
-	//		//update Rat location
-	//		
-	//		//change char at rats current location to p
-	//		
-	//		//change char temps values to r
-	//		
-	//		//then set Location = Temps
-	//		
-	//		
-	//		
-	//		
-	//	}
 
 }

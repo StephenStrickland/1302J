@@ -1,38 +1,39 @@
+//Stephen Strickland
 
-import java.awt.Color;
+//watched a youtube tutorial on game making for some tips on creating my maze; but I never used any of his source code.
+//check it out: https://www.youtube.com/watch?v=fn-T7J1ytMc&list=PLA38BD857DC0EE786&index=5
+
 import java.awt.event.*;
 import java.awt.Graphics;
-
 import javax.swing.*;
 
 
-public class board extends JPanel implements ActionListener {
+public class Board extends JPanel implements ActionListener {
 	
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2900749320141558719L;
+	//declare variables, etc...
 	Map map;
 	int newRow, newCol, endRow, endCol;
 	private Timer timer;
 	
-	public board() {
+	public Board() {
 		map = new Map();
-		//updates the board every 25 milliseconds
-		timer  = new Timer(25, this);
+		//updates the board every 25 milliseconds. Calls actionpPrformed();
 		timer.start();
-		
-		
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
 		//calls repaint method
 		repaint();
-		
 	}
 	
 	public void paint(Graphics g)
 	{
 		super.paint(g);
-
 		//iterate through the array and draw the images.
 		for(int row = 0; row < 100; row++)
 		{
@@ -55,25 +56,14 @@ public class board extends JPanel implements ActionListener {
 			}
 		}
 
-		//Draw Start
+		//Draw Rat
 		g.drawImage(map.getRat(), newCol*8, newRow*8, null);
 	}
 
-	//Setting the endlocation
-	public void setEnd(Integer[] newLoc)
-	{
-		endRow = newLoc[0];
-		endCol = newLoc[1];
-	}
-	
 	//setting the start location
 	public void updateLocation(Integer[] newLoc) 
 	{
 		newRow = newLoc[0];
 		newCol = newLoc[1];
 	}
-	
-	
-	
-
 }
