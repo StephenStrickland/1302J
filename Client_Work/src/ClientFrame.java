@@ -12,21 +12,26 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import java.awt.Color;
 
 
 public class ClientFrame extends JFrame {
 	private JTextField txtMs;
+	
+	 RatMap map = new RatMap();
+	
 	public ClientFrame() {
 		setTitle("Rat Client");
-		setSize(800, 800);
+		setSize(850, 800);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		JPanel panel = new JPanel();
-		panel.setBackground(UIManager.getColor("PopupMenu.selectionBackground"));
+		//panel.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new MigLayout("", "[800px]", "[16px][762px]"));
 
-		panel.add(new RatMap(), "cell 0 1,grow");
+		
+		panel.add(map, "cell 0 1,grow");
 		
 		JButton btnStart = new JButton("Start");
 		panel.add(btnStart, "flowx,cell 0 0,alignx left,aligny top");

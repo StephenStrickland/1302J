@@ -15,7 +15,7 @@ public class RatClient {
 	static final String WIN = "ooooooooo";
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
-	int row = 0, column = 0, counter = 0;
+	int row = 50, column = 0, counter = 0;
 	Node head = null, currentNode;//, tempNode;
 	Boolean backtracking = false;
 	//int xy boundries
@@ -46,24 +46,19 @@ public class RatClient {
 			rat.createHead(serverResponse);
 			rat.findBranches(serverResponse);
 			writeToServer.println(rat.move(serverResponse));
+			gui.map.setRow(rat.row);
+			gui.map.setCol(rat.column);
+			gui.map.newPosition(serverResponse, rat.currentNode.getENUM());
 
 			while (true)
 			{
-				try
-				{
-					Thread.sleep(0);
-				}
-				catch(InterruptedException ex)
-				{
-					Thread.currentThread().interrupt();
-				}
 
 				serverResponse = inFromServer.readLine();
 
 				if(serverResponse.equalsIgnoreCase(WIN))
 				{
 					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
-					System.exit(0);
+					//System.exit(0);
 				}
 
 				if(!serverResponse.equals(INVALID_MOVE))
@@ -73,7 +68,18 @@ public class RatClient {
 					rat.createNode(serverResponse);
 					//rat.findBranches(serverResponse);
 					writeToServer.println(rat.move(serverResponse));
+					gui.map.setRow(rat.row);
+					gui.map.setCol(rat.column);
+					gui.map.newPosition(serverResponse, rat.currentNode.getENUM());
 
+					try
+					{
+						Thread.sleep(400);
+					}
+					catch(InterruptedException ex)
+					{
+						Thread.currentThread().interrupt();
+					}
 
 				}
 				else
