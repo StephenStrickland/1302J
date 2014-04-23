@@ -72,17 +72,14 @@ public class SocketServer {
 
 			//update the rats current position
 			gui.b.updateLocation(maze.getCurrentLocation());
+			outToClient.println(newMove);
+			outToClient.flush();
 
-			if(newMove != "ooooooooo")
-			{
-				outToClient.println(newMove);
-				outToClient.flush();
-			}
-			else
-				gui.lblClientsConnected.setText("Client Disconnected");
-				//System.exit(0);
+		
+			//System.exit(0);
 
 		}
+		gui.lblClientsConnected.setText("Client Disconnected");
 		inFromClient.close();
 		outToClient.close();
 		connectionSocket.close();
