@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 
 /**
  * @author sstrickland
@@ -16,6 +18,7 @@ public class RatClient {
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
 	int row = 50, column = 0, counter = 0;
+	static int debug;
 	Node head = null, currentNode;//, tempNode;
 	Boolean backtracking = false;
 	//int xy boundries
@@ -36,6 +39,28 @@ public class RatClient {
 
 		String serverResponse;
 		RatClient rat = new RatClient();
+
+
+
+		
+		//so that only Integers are allowed : http://www.coderanch.com/t/500211/java/java/Setting-JTextField-accept-Integers-Solution
+		//if the debug radio button is not active then it will set
+		if(gui.rdbtnDebugMode.isSelected())
+		{
+			try {  
+				debug = Integer.parseInt(gui.txtMs.getText());
+				gui.txtMs.requestFocusInWindow();  
+			} catch (Exception e) {   
+				JOptionPane.showMessageDialog(gui, "Incorrect Data. Integers Only.",  
+						"Inane error", JOptionPane.ERROR_MESSAGE);  
+				gui.txtMs.setText("");  
+				gui.txtMs.requestFocusInWindow();  
+				return;  
+			}  
+		}
+		else
+			debug = 200;
+			
 
 		try
 		{
@@ -58,15 +83,18 @@ public class RatClient {
 				gui.map.setCol(rat.column);
 				gui.map.newPosition(serverResponse, rat.currentNode.getENUM());
 
-				if(serverResponse.equalsIgnoreCase(WIN))
+				if(serverResponse.equals(WIN))
 				{
-					
-					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
-					gui.setGlassVisible();
-					//System.exit(0);
+					String winningMsg = "You win, the end of the maze is at: " + rat.row +',' + rat.column;
+
+					System.out.println(winningMsg);
+					//gui.setGlassVisible();
+					JOptionPane.showMessageDialog(gui, winningMsg, "Winner", JOptionPane.PLAIN_MESSAGE);
+
+					break;
 				}
 
-				if(!serverResponse.equals(INVALID_MOVE))
+				if(!serverResponse.equals(INVALID_MOVE) && !serverResponse.equals(WIN))
 				{	
 					System.out.println("~FROM SERVER: " + serverResponse);
 					//rat.currentNode.setLocation(serverResponse);
@@ -76,7 +104,7 @@ public class RatClient {
 
 					try
 					{
-						Thread.sleep(200);
+						Thread.sleep(debug);
 					}
 					catch(InterruptedException ex)
 					{
@@ -91,6 +119,9 @@ public class RatClient {
 
 
 			}
+			inFromServer.close();
+			clientSocket.close();
+			
 		}
 		finally
 		{
@@ -105,14 +136,14 @@ public class RatClient {
 			if(NodeTest(currentNode, ENUM_FROM_DIR.RIGHT))
 				currentNode.createNode(3);
 			//else
-				//currentNode.left.setPrevious(currentNode);
+			//currentNode.left.setPrevious(currentNode);
 		}
 
 		if((newMove.charAt(5) != 'w') )
 		{
 			if (NodeTest(currentNode, ENUM_FROM_DIR.LEFT))
 				currentNode.createNode(1);	
-		//	else
+			//	else
 			//	currentNode.right.setPrevious(currentNode);
 		}
 
@@ -120,7 +151,7 @@ public class RatClient {
 		{
 			if(NodeTest(currentNode, ENUM_FROM_DIR.UP))
 				currentNode.createNode(2);
-		//	else
+			//	else
 			//	currentNode.down.setPrevious(currentNode);
 		}
 		if(newMove.charAt(1) != 'w')
@@ -128,7 +159,7 @@ public class RatClient {
 			if(NodeTest(currentNode, ENUM_FROM_DIR.DOWN))
 				currentNode.createNode(4);
 			//else
-				//currentNode.up.setPrevious(currentNode);
+			//currentNode.up.setPrevious(currentNode);
 		}
 
 	}
@@ -141,9 +172,9 @@ public class RatClient {
 		if(!currentNode.isDead())
 		{
 			currentNode.setLocation(serverResponse);
-//			tempNode = null;
-//			tempNode = new Node();
-//			tempNode.setPrevious(currentNode);
+			//			tempNode = null;
+			//			tempNode = new Node();
+			//			tempNode.setPrevious(currentNode);
 			findBranches(serverResponse);
 		}
 
@@ -187,7 +218,7 @@ public class RatClient {
 				newPos = createString(newMove,5);
 
 				//tempNode.setENUM(ENUM_FROM_DIR.RIGHT);
-			//	currentNode.right.setENUM(ENUM_FROM_DIR.RIGHT);;
+				//	currentNode.right.setENUM(ENUM_FROM_DIR.RIGHT);;
 				currentNode = currentNode.right;
 
 
@@ -197,8 +228,8 @@ public class RatClient {
 				//move DOWN
 				column++;
 				newPos = createString(newMove,7);
-			//	tempNode.setENUM(ENUM_FROM_DIR.DOWN);
-			//	currentNode.down.setENUM(ENUM_FROM_DIR.DOWN);;
+				//	tempNode.setENUM(ENUM_FROM_DIR.DOWN);
+				//	currentNode.down.setENUM(ENUM_FROM_DIR.DOWN);;
 				currentNode = currentNode.down;
 			}
 			else if(NodeTest(currentNode.left, ENUM_FROM_DIR.RIGHT))
@@ -207,11 +238,11 @@ public class RatClient {
 				row--;
 				newPos = createString(newMove,3);
 
-			//	tempNode.setENUM(ENUM_FROM_DIR.LEFT);
+				//	tempNode.setENUM(ENUM_FROM_DIR.LEFT);
 				//currentNode.left.setENUM(ENUM_FROM_DIR.LEFT);
 				currentNode = currentNode.left;
 			}
-// && (!positionMap.containsValue(mapBuilder(row, column-1)))
+			// && (!positionMap.containsValue(mapBuilder(row, column-1)))
 			else if(NodeTest(currentNode.up, ENUM_FROM_DIR.DOWN))
 			{
 				//move UP
@@ -337,9 +368,9 @@ public class RatClient {
 		head = new Node(loc, ENUM_FROM_DIR.HEAD, null);
 		//head = tempNode;
 		currentNode = head;
-//		currentNode.setPrevious(head);
-//		Node tempNode = new Node();
-//		tempNode.setPrevious(currentNode);
+		//		currentNode.setPrevious(head);
+		//		Node tempNode = new Node();
+		//		tempNode.setPrevious(currentNode);
 		addMap();
 		//updateboundries();
 	}

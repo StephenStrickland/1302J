@@ -83,5 +83,8 @@ public class SocketServer {
 				//System.exit(0);
 
 		}
+		inFromClient.close();
+		outToClient.close();
+		connectionSocket.close();
 	}
 }

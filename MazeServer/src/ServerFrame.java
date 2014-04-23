@@ -21,6 +21,7 @@ public class ServerFrame extends JFrame {
 	public ServerFrame() {
 		
 		setTitle("Maze Server");
+		setLocationRelativeTo(null);
 		//I do not want my window to scale or move so...
 		setMinimumSize(new Dimension(832, 875));
 		setMaximumSize(new Dimension(832, 875));
