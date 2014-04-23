@@ -40,7 +40,10 @@ public class RatClient {
 		String serverResponse;
 		RatClient rat = new RatClient();
 
-
+		while(!gui.isClicked)
+		{
+			Thread.sleep(1000);
+		}
 
 		
 		//so that only Integers are allowed : http://www.coderanch.com/t/500211/java/java/Setting-JTextField-accept-Integers-Solution
@@ -73,7 +76,7 @@ public class RatClient {
 			writeToServer.println(rat.move(serverResponse));
 			gui.map.setRow(rat.row);
 			gui.map.setCol(rat.column);
-			gui.map.newPosition(serverResponse, rat.currentNode.getENUM());
+			gui.map.newPosition(serverResponse);
 
 			while (true)
 			{
@@ -81,7 +84,7 @@ public class RatClient {
 				serverResponse = inFromServer.readLine();
 				gui.map.setRow(rat.row);
 				gui.map.setCol(rat.column);
-				gui.map.newPosition(serverResponse, rat.currentNode.getENUM());
+				gui.map.newPosition(serverResponse);
 
 				if(serverResponse.equals(WIN))
 				{

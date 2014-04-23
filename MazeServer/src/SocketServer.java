@@ -74,6 +74,9 @@ public class SocketServer {
 			gui.b.updateLocation(maze.getCurrentLocation());
 			outToClient.println(newMove);
 			outToClient.flush();
+			
+			if(newMove.equals("ooooooooo"))
+				break;
 
 		
 			//System.exit(0);
