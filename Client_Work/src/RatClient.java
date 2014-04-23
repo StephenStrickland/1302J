@@ -17,7 +17,7 @@ public class RatClient {
 	static final String WIN = "ooooooooo";
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
-	int row = 50, column = 0, counter = 0;
+	int row = 50, column = 1, counter = 0;
 	static int debug;
 	Node head = null, currentNode;//, tempNode;
 	Boolean backtracking = false;
@@ -82,9 +82,6 @@ public class RatClient {
 			{
 
 				serverResponse = inFromServer.readLine();
-				gui.map.setRow(rat.row);
-				gui.map.setCol(rat.column);
-				gui.map.newPosition(serverResponse);
 
 				if(serverResponse.equals(WIN))
 				{
@@ -95,6 +92,12 @@ public class RatClient {
 					JOptionPane.showMessageDialog(gui, winningMsg, "Winner", JOptionPane.PLAIN_MESSAGE);
 
 					break;
+				}
+				else
+				{
+				gui.map.setRow(rat.row);
+				gui.map.setCol(rat.column);
+				gui.map.newPosition(serverResponse);
 				}
 
 				if(!serverResponse.equals(INVALID_MOVE) && !serverResponse.equals(WIN))

@@ -1,8 +1,9 @@
 //Stephen Strickland
 //this was part of the same code that I learned in my Board Class
 import java.awt.Image;
-import javax.swing.ImageIcon;
 import java.util.Arrays;
+
+import javax.swing.ImageIcon;
 
 
 public class Map {
@@ -15,14 +16,14 @@ public class Map {
 		for(char[] row : mazeArr)
 			Arrays.fill(row, 'w');
 		
-		ImageIcon image  = new ImageIcon("/Users/stephen/GitProjects/1302J/Client_Work/img/wall.png");
+		ImageIcon image  = new ImageIcon(getClass().getResource("/Client_Work/img/rat.png"));
 		wall = image.getImage();
-		image = new ImageIcon("/Users/stephen/GitProjects/1302J/Client_Work/img/path.png");
-		path = image.getImage();
-		image = new ImageIcon("/Users/stephen/GitProjects/1302J/Client_Work/img/rat.png");
-		rat = image.getImage();
-		image  = new ImageIcon("/Users/stephen/GitProjects/1302J/Client_Work/img/out.png");
-		out = image.getImage();
+//		image = new ImageIcon("/img/path.png");
+//		path = image.getImage();
+//		image = new ImageIcon("/img/rat.png");
+//		rat = image.getImage();
+//		image  = new ImageIcon("/img/out.png");
+//		out = image.getImage();
 	}
 	
 	public void updateMaze(char[] c, int x, int y)
