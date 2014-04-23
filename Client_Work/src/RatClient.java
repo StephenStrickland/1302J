@@ -58,6 +58,7 @@ public class RatClient {
 				if(serverResponse.equalsIgnoreCase(WIN))
 				{
 					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
+					gui.setGlassVisible();
 					//System.exit(0);
 				}
 
@@ -74,7 +75,7 @@ public class RatClient {
 
 					try
 					{
-						Thread.sleep(400);
+						Thread.sleep(200);
 					}
 					catch(InterruptedException ex)
 					{
@@ -275,14 +276,14 @@ public class RatClient {
 
 		switch (currentNode.getENUM()) {
 		case DOWN:
-			column++;
+			column--;
 			ratPos = 1;
 			currentNode.setDead(true);
 			currentNode.getPrevious().down.setDead(true);
 			//tempNode.setDead(true);
 			break;
 		case UP:
-			column--;
+			column++;
 			ratPos = 7;
 			currentNode.setDead(true);
 			currentNode.getPrevious().up.setDead(true);
@@ -291,7 +292,7 @@ public class RatClient {
 
 
 		case LEFT:
-			row--;
+			row++;
 			ratPos = 5;
 			currentNode.setDead(true);
 			currentNode.getPrevious().left.setDead(true);
@@ -299,7 +300,7 @@ public class RatClient {
 			break;
 
 		case RIGHT:
-			row++;
+			row--;
 			ratPos = 3;
 			currentNode.setDead(true);
 			currentNode.getPrevious().right.setDead(true);

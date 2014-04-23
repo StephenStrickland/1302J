@@ -25,9 +25,20 @@ public class Map {
 		out = image.getImage();
 	}
 	
-	public void updateMaze(char c, int x, int y)
+	public void updateMaze(char[] c, int x, int y)
 	{
-		mazeArr[y][x] = c;
+		int counter = 0;
+		for(int col = y - 1; col < y+2; col++)
+		{
+			for(int row = x - 1; row < x+2; row++)
+			{
+				char jk = c[counter];
+				mazeArr[col][row] = jk;
+				counter++;	
+			}
+		}
+		
+		//mazeArr[y][x] = c;
 	}
 	
 	public Image getPath()

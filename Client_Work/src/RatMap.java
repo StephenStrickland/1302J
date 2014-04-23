@@ -71,49 +71,50 @@ public class RatMap extends JPanel implements ActionListener {
 		
 		char[] pos = position.toCharArray();
 		pos[4] = 'p';
+		map.updateMaze(pos, ratRow, ratCol);
 		
-		switch(dir)
-		{
-		case HEAD:
-			map.updateMaze(pos[0], ratRow-1, ratCol-1);
-			map.updateMaze(pos[1], ratRow, ratCol-1);
-			map.updateMaze(pos[2], ratRow+1, ratCol-1);
-			map.updateMaze(pos[3], ratRow-1, ratCol);
-			map.updateMaze(pos[4], ratRow, ratCol);
-			map.updateMaze(pos[5], ratRow+1, ratCol);
-			map.updateMaze(pos[6], ratRow-1, ratCol+1);
-			map.updateMaze(pos[7], ratRow, ratCol+1);
-			map.updateMaze(pos[8], ratRow+1, ratCol+1);
-			break;
-		case RIGHT:
-			int temprow = ratRow++;
-			map.updateMaze(pos[2], temprow, ratCol-1);
-			map.updateMaze(pos[5], temprow, ratCol);
-			map.updateMaze(pos[8], temprow, ratCol+1);
-			break;
-			
-		case LEFT:
-			temprow = ratRow--;
-			map.updateMaze(pos[0], temprow, ratCol-1);
-			map.updateMaze(pos[3], temprow, ratCol);
-			map.updateMaze(pos[6], temprow, ratCol+1);
-			break;
-			
-		case UP:
-			int tempCol = ratCol--;
-			map.updateMaze(pos[0], ratRow-1, tempCol);
-			map.updateMaze(pos[1], ratRow, tempCol);
-			map.updateMaze(pos[2], ratRow+1, tempCol);
-			break;
-		
-		case DOWN:
-			tempCol = ratCol++;
-			map.updateMaze(pos[6], ratRow-1, tempCol);
-			map.updateMaze(pos[7], ratRow, tempCol);
-			map.updateMaze(pos[8], ratRow+1, tempCol);
-		break;
-		
-		}
+//		switch(dir)
+//		{
+//		case HEAD:
+//			map.updateMaze(pos[0], ratRow-1, ratCol-1);
+//			map.updateMaze(pos[1], ratRow, ratCol-1);
+//			map.updateMaze(pos[2], ratRow+1, ratCol-1);
+//			map.updateMaze(pos[3], ratRow-1, ratCol);
+//			map.updateMaze(pos[4], ratRow, ratCol);
+//			map.updateMaze(pos[5], ratRow+1, ratCol);
+//			map.updateMaze(pos[6], ratRow-1, ratCol+1);
+//			map.updateMaze(pos[7], ratRow, ratCol+1);
+//			map.updateMaze(pos[8], ratRow+1, ratCol+1);
+//			break;
+//		case RIGHT:
+//			int temprow = ratRow++;
+//			map.updateMaze(pos[2], temprow, ratCol-1);
+//			map.updateMaze(pos[5], temprow, ratCol);
+//			map.updateMaze(pos[8], temprow, ratCol+1);
+//			break;
+//			
+//		case LEFT:
+//			temprow = ratRow--;
+//			map.updateMaze(pos[0], temprow, ratCol-1);
+//			map.updateMaze(pos[3], temprow, ratCol);
+//			map.updateMaze(pos[6], temprow, ratCol+1);
+//			break;
+//			
+//		case UP:
+//			int tempCol = ratCol--;
+//			map.updateMaze(pos[0], ratRow-1, tempCol);
+//			map.updateMaze(pos[1], ratRow, tempCol);
+//			map.updateMaze(pos[2], ratRow+1, tempCol);
+//			break;
+//		
+//		case DOWN:
+//			tempCol = ratCol++;
+//			map.updateMaze(pos[6], ratRow-1, tempCol);
+//			map.updateMaze(pos[7], ratRow, tempCol);
+//			map.updateMaze(pos[8], ratRow+1, tempCol);
+//		break;
+//		
+//		}
 		
 		
 		
