@@ -53,6 +53,7 @@ public class SocketServer {
 			if(request > 50000)
 			{
 				System.out.println("50,000 request made, closing socket.");
+				gui.lblClientsConnected.setText("50,000 request made, closing socket.");
 				String last = "wwwwwwwww";
 				//outToClient.writeUTF(last);
 				outToClient.println(last);
@@ -78,7 +79,8 @@ public class SocketServer {
 				outToClient.flush();
 			}
 			else
-				System.exit(0);
+				gui.lblClientsConnected.setText("Client Disconnected");
+				//System.exit(0);
 
 		}
 	}

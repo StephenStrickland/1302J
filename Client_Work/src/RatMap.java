@@ -29,10 +29,11 @@ public class RatMap extends JPanel implements ActionListener {
 	RatMap()
 	{
 		map = new Map();
-		Timer timer  = new Timer(25, this);
+		//updates 60 times a second (monitor refresh rat in the US)
+		Timer timer  = new Timer(16, this);
 		timer.start();
 		
-		validate();
+		//validate();
 	
 	}
 	

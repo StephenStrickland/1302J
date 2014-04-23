@@ -54,9 +54,13 @@ public class RatClient {
 			{
 
 				serverResponse = inFromServer.readLine();
+				gui.map.setRow(rat.row);
+				gui.map.setCol(rat.column);
+				gui.map.newPosition(serverResponse, rat.currentNode.getENUM());
 
 				if(serverResponse.equalsIgnoreCase(WIN))
 				{
+					
 					System.out.println("You win, the end of the maze is at:" + rat.row +',' + rat.column);
 					gui.setGlassVisible();
 					//System.exit(0);
@@ -69,9 +73,6 @@ public class RatClient {
 					rat.createNode(serverResponse);
 					//rat.findBranches(serverResponse);
 					writeToServer.println(rat.move(serverResponse));
-					gui.map.setRow(rat.row);
-					gui.map.setCol(rat.column);
-					gui.map.newPosition(serverResponse, rat.currentNode.getENUM());
 
 					try
 					{
