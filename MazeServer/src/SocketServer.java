@@ -37,15 +37,15 @@ public class SocketServer {
 		Socket connectionSocket = socket.accept();
 		//once connected it updates the rats position and open up the reader and writer
 		gui.lblClientsConnected.setText("Client Connected");
-		BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-		PrintWriter outToClient = new PrintWriter(connectionSocket.getOutputStream(), true);
+		BufferedReader in = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+		PrintWriter out = new PrintWriter(connectionSocket.getOutputStream(), true);
 		System.out.println("Server Connected\n");
 
 		System.out.println("This maze is: " + maze.mazeArr[1].length() +'x' + maze.mazeArr.length);
 
 		System.out.println("Starting Maze Spot: "+ maze.getStart());
 
-		outToClient.println(maze.getStart());
+		out.println(maze.getStart());
 
 		int request = 0;
 		while(true)
@@ -58,12 +58,12 @@ public class SocketServer {
 				JOptionPane.showMessageDialog(gui, "50,000 request made, closing socket.", "Closing Socket", JOptionPane.INFORMATION_MESSAGE);
 				gui.lblClientsConnected.setText("Socket Closed, please restart server.");
 				String last = "wwwwwwwww";
-				outToClient.println(last);
+				out.println(last);
 				connectionSocket.close();
 				break;
 			}
 
-			currentCmd = inFromClient.readLine().toCharArray();
+			currentCmd = in.readLine().toCharArray();
 			int numRead = currentCmd.length;
 			System.out.println("\nLength Read: " + numRead);	
 			System.out.println("Command []: " + Arrays.toString(currentCmd)+"\n");
@@ -74,8 +74,8 @@ public class SocketServer {
 
 			//update the rats current position
 			gui.b.updateLocation(maze.getCurrentLocation());
-			outToClient.println(newMove);
-			outToClient.flush();
+			out.println(newMove);
+			out.flush();
 			
 			if(newMove.equals("ooooooooo"))
 			{
@@ -85,8 +85,8 @@ public class SocketServer {
 
 		}
 		gui.lblClientsConnected.setText("Client Disconnected");
-		inFromClient.close();
-		outToClient.close();
+		in.close();
+		out.close();
 		connectionSocket.close();
 	}
 }

@@ -17,6 +17,7 @@ public class RatClient {
 	static final String WIN = "ooooooooo";
 	static final String LOST = "wwwwwwwww";
 	static final String INVALID_MOVE = "rrrrrrrrr";
+	final static String defaultHost = "localhost";
 	int row = 50, column = 1, counter = 0;
 	static int debug;
 	Node head = null, currentNode;//, tempNode;
@@ -32,7 +33,7 @@ public class RatClient {
 		String sentence;
 		ClientFrame gui = new ClientFrame();
 		//BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
-		Socket clientSocket = new Socket("localhost", 13000); 
+		Socket clientSocket = new Socket(defaultHost, 13000); 
 
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		PrintWriter writeToServer = new PrintWriter(clientSocket.getOutputStream(), true);
