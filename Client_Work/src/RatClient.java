@@ -20,9 +20,8 @@ public class RatClient {
 	final static String defaultHost = "localhost";
 	int row = 50, column = 1, counter = 0;
 	static int debug;
-	Node head = null, currentNode;//, tempNode;
+	Node head = null, currentNode;
 	Boolean backtracking = false;
-	//int xy boundries
 	HashMap<String, String> positionMap = new HashMap<String, String>();
 
 
@@ -46,7 +45,6 @@ public class RatClient {
 			Thread.sleep(1000);
 		}
 
-		
 		//so that only Integers are allowed : http://www.coderanch.com/t/500211/java/java/Setting-JTextField-accept-Integers-Solution
 		//if the debug radio button is not active then it will set
 		if(gui.rdbtnDebugMode.isSelected())
@@ -58,13 +56,12 @@ public class RatClient {
 				JOptionPane.showMessageDialog(gui, "Incorrect Data. Integers Only.",  
 						"Inane error", JOptionPane.ERROR_MESSAGE);  
 				gui.txtMs.setText("");  
-				gui.txtMs.requestFocusInWindow();  
-				return;  
+				gui.txtMs.requestFocusInWindow();   
 			}  
 		}
 		else
 			debug = 200;
-			
+
 
 		try
 		{
@@ -89,24 +86,21 @@ public class RatClient {
 					String winningMsg = "You win, the end of the maze is at: " + rat.row +',' + rat.column;
 
 					System.out.println(winningMsg);
-					//gui.setGlassVisible();
 					JOptionPane.showMessageDialog(gui, winningMsg, "Winner", JOptionPane.PLAIN_MESSAGE);
 
 					break;
 				}
 				else
 				{
-				gui.map.setRow(rat.row);
-				gui.map.setCol(rat.column);
-				gui.map.newPosition(serverResponse);
+					gui.map.setRow(rat.row);
+					gui.map.setCol(rat.column);
+					gui.map.newPosition(serverResponse);
 				}
 
 				if(!serverResponse.equals(INVALID_MOVE) && !serverResponse.equals(WIN))
 				{	
 					System.out.println("~FROM SERVER: " + serverResponse);
-					//rat.currentNode.setLocation(serverResponse);
 					rat.createNode(serverResponse);
-					//rat.findBranches(serverResponse);
 					writeToServer.println(rat.move(serverResponse));
 
 					try
@@ -128,7 +122,7 @@ public class RatClient {
 			}
 			inFromServer.close();
 			clientSocket.close();
-			
+
 		}
 		finally
 		{
@@ -142,31 +136,23 @@ public class RatClient {
 		{
 			if(NodeTest(currentNode, ENUM_FROM_DIR.RIGHT))
 				currentNode.createNode(3);
-			//else
-			//currentNode.left.setPrevious(currentNode);
 		}
 
 		if((newMove.charAt(5) != 'w') )
 		{
 			if (NodeTest(currentNode, ENUM_FROM_DIR.LEFT))
 				currentNode.createNode(1);	
-			//	else
-			//	currentNode.right.setPrevious(currentNode);
 		}
 
 		if((newMove.charAt(7) != 'w'))
 		{
 			if(NodeTest(currentNode, ENUM_FROM_DIR.UP))
 				currentNode.createNode(2);
-			//	else
-			//	currentNode.down.setPrevious(currentNode);
 		}
 		if(newMove.charAt(1) != 'w')
 		{
 			if(NodeTest(currentNode, ENUM_FROM_DIR.DOWN))
 				currentNode.createNode(4);
-			//else
-			//currentNode.up.setPrevious(currentNode);
 		}
 
 	}
@@ -179,9 +165,6 @@ public class RatClient {
 		if(!currentNode.isDead())
 		{
 			currentNode.setLocation(serverResponse);
-			//			tempNode = null;
-			//			tempNode = new Node();
-			//			tempNode.setPrevious(currentNode);
 			findBranches(serverResponse);
 		}
 
@@ -223,9 +206,6 @@ public class RatClient {
 				//move RIGHT
 				row++;
 				newPos = createString(newMove,5);
-
-				//tempNode.setENUM(ENUM_FROM_DIR.RIGHT);
-				//	currentNode.right.setENUM(ENUM_FROM_DIR.RIGHT);;
 				currentNode = currentNode.right;
 
 
@@ -235,8 +215,6 @@ public class RatClient {
 				//move DOWN
 				column++;
 				newPos = createString(newMove,7);
-				//	tempNode.setENUM(ENUM_FROM_DIR.DOWN);
-				//	currentNode.down.setENUM(ENUM_FROM_DIR.DOWN);;
 				currentNode = currentNode.down;
 			}
 			else if(NodeTest(currentNode.left, ENUM_FROM_DIR.RIGHT))
@@ -244,9 +222,6 @@ public class RatClient {
 				//move LEFT
 				row--;
 				newPos = createString(newMove,3);
-
-				//	tempNode.setENUM(ENUM_FROM_DIR.LEFT);
-				//currentNode.left.setENUM(ENUM_FROM_DIR.LEFT);
 				currentNode = currentNode.left;
 			}
 			// && (!positionMap.containsValue(mapBuilder(row, column-1)))
@@ -255,8 +230,6 @@ public class RatClient {
 				//move UP
 				column--;
 				newPos = createString(newMove,1);
-				//tempNode.setENUM(ENUM_FROM_DIR.UP);
-				//currentNode.up.setENUM(ENUM_FROM_DIR.UP);;
 				currentNode = currentNode.up;
 			}
 			else
@@ -269,10 +242,6 @@ public class RatClient {
 		}
 		else
 			newPos = backtrack();
-
-
-		//updateBoundries();
-
 
 		addMap();
 		return newPos;
@@ -319,14 +288,12 @@ public class RatClient {
 			ratPos = 1;
 			currentNode.setDead(true);
 			currentNode.getPrevious().down.setDead(true);
-			//tempNode.setDead(true);
 			break;
 		case UP:
 			column++;
 			ratPos = 7;
 			currentNode.setDead(true);
 			currentNode.getPrevious().up.setDead(true);
-			//tempNode.setDead(true);
 			break;
 
 
@@ -335,7 +302,6 @@ public class RatClient {
 			ratPos = 5;
 			currentNode.setDead(true);
 			currentNode.getPrevious().left.setDead(true);
-			//tempNode.setDead(true);
 			break;
 
 		case RIGHT:
@@ -354,14 +320,9 @@ public class RatClient {
 		}
 
 		String new_Bactrack = createString(currentNode.getLocation(), ratPos);
-
-		// tempNode.setDead(true);
 		Node tempNod = currentNode.getPrevious();
 		currentNode = tempNod;
-		//tempNode = tempNod;
-		//currentNode.setDead(true);
-		//		Node tempNode = currentNode.getPrevious();
-		//		currentNode = tempNode;
+
 		return new_Bactrack;
 	}
 
@@ -373,13 +334,8 @@ public class RatClient {
 	{
 		//	Creates head
 		head = new Node(loc, ENUM_FROM_DIR.HEAD, null);
-		//head = tempNode;
 		currentNode = head;
-		//		currentNode.setPrevious(head);
-		//		Node tempNode = new Node();
-		//		tempNode.setPrevious(currentNode);
 		addMap();
-		//updateboundries();
 	}
 
 
@@ -402,22 +358,17 @@ public class RatClient {
 
 	//TESTING build several mazes slowly gaining complexity to the nth degree.
 
-	//for mains, IF deadend, backtrack -- that was it will increment its way back to a node that it can search another branch.
-
-
-	//
-
 	//keep up with the min/max of y and x, that way we can print it out through a for loop and the dictionary
-
 
 	//write test for first location, to see if we can find out if there is anything that we can find out about the location(like which corner, is it on an edge or in the middle)...
 
 	//* dead end
 	//+ path
 	//@ mouse location
+	//^^^Scratch this...
 
 
-	//the overall order for everything is Right DOWN Left UP
+	//the overall order for everything is Right DOWN Left UP as it progresses through the maze
 	//
 	//When new location comes in, find available paths and set enums for the according nodes, when backtracking all null nodes are assumed walls and the nodes with enums will be available to traverse through.
 }
