@@ -15,17 +15,18 @@ public class Map {
 	{
 		for(char[] row : mazeArr)
 			Arrays.fill(row, 'w');
-		
-		ImageIcon image  = new ImageIcon(getClass().getResource("/Client_Work/img/rat.png"));
+		//load images
+		ImageIcon image  = new ImageIcon(getClass().getResource("/images/wall.png"));
 		wall = image.getImage();
-//		image = new ImageIcon("/img/path.png");
-//		path = image.getImage();
-//		image = new ImageIcon("/img/rat.png");
-//		rat = image.getImage();
-//		image  = new ImageIcon("/img/out.png");
-//		out = image.getImage();
+		image = new ImageIcon(getClass().getResource("/images/path.png"));
+		path = image.getImage();
+		image = new ImageIcon(getClass().getResource("/images/rat.png"));
+		rat = image.getImage();
+		image  = new ImageIcon(getClass().getResource("/images/out.png"));
+		out = image.getImage();
 	}
 	
+	//self explanatory
 	public void updateMaze(char[] c, int x, int y)
 	{
 		int counter = 0;

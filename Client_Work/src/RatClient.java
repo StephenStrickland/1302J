@@ -120,7 +120,7 @@ public class RatClient {
 				}
 				else
 				{
-					writeToServer.println(rat.backtrack());
+					//writeToServer.println(rat.backtrack());
 				}
 
 
