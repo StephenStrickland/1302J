@@ -5,7 +5,9 @@
 //it was easy to read and it just works, I did modify a few of the name variables and I am using a PrinterWriter instead of a BufferedWriter
 import java.io.*;
 import java.net.*;
-import java.util.Arrays;;
+import java.util.Arrays;
+
+import javax.swing.JOptionPane;
 
 public class SocketServer {
 
@@ -53,9 +55,9 @@ public class SocketServer {
 			if(request > 50000)
 			{
 				System.out.println("50,000 request made, closing socket.");
-				gui.lblClientsConnected.setText("50,000 request made, closing socket.");
+				JOptionPane.showMessageDialog(gui, "50,000 request made, closing socket.", "Closing Socket", JOptionPane.INFORMATION_MESSAGE);
+				gui.lblClientsConnected.setText("Socket Closed, please restart server.");
 				String last = "wwwwwwwww";
-				//outToClient.writeUTF(last);
 				outToClient.println(last);
 				connectionSocket.close();
 				break;
@@ -76,10 +78,10 @@ public class SocketServer {
 			outToClient.flush();
 			
 			if(newMove.equals("ooooooooo"))
+			{
+				JOptionPane.showMessageDialog(gui, "The Rat Won!!!", "Winner!", JOptionPane.PLAIN_MESSAGE);
 				break;
-
-		
-			//System.exit(0);
+			}
 
 		}
 		gui.lblClientsConnected.setText("Client Disconnected");
