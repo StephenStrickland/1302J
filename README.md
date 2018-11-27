@@ -1,10 +1,10 @@
 1302J Final Project Rat/Maze
 =====
 
-######Creator: Stephen Strickland <br>
-######Professor: John Vande Ven
+###### Creator: Stephen Strickland <br>
+###### Professor: John Vande Ven
 
-#####Purpose:
+##### Purpose:
 
 To create a Maze server and a Rat Client to communicate over TCP/IP and solve a maze.
 
@@ -44,7 +44,7 @@ So I have created a Node that represents each of the rats locations.
 Classes
 ------
 
-###Node
+### Node
 ```java
   public class Node{
 	Node left, right, up, down, previous;
@@ -60,13 +60,13 @@ The string holds its location and finally an enum.
 
 This enum tells me which direction the current node is a child of. If the enum is right, then I know that the previous' right child is my node and in order to back track I need to go left.
 
-###JReader
+### JReader
 I use googles GSON library to handle reading in a JSON array that is in a text file, its fast and easy and keeps me and my code from making a mistake. I just point the reader to the appropriate file and boom, I have a maze I can work with.
 ```
 JsonReader reader  = new JsonReader(new FileReader(path));
 ```
 
-###Socket Server
+### Socket Server
 
 This handles the Socket(port 13000) and updating the rat's location.
 
@@ -86,15 +86,15 @@ The Server then finds the start and end locations of the maze and then sends the
 The Server waits for an updated position string from the Client. It takes the string finds the location of the char 'r' and updates the rats current position. Then it creates a string with the surrounding cells of the new position and send it to the Client.
 
 
-###ENUM
+### ENUM
 Just the file that contains the enums for the nodes.(not much to explain)
 
 
-###Rat Client
+### Rat Client
 
 This the "brains" of the rat.
 
-#####Order of Operations
+##### Order of Operations
 
 Rat recieves String,Creates the node and Finds available branches. 
 
